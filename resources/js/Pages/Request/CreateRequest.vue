@@ -1,46 +1,34 @@
 <script setup>
-import { Head } from "@inertiajs/inertia-vue3";
-import CommunityDropdown from '@/Components/Dropdown.vue';
-import CommunityDropdownLink from '@/Components/DropdownLink.vue';
+import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+const props = defineProps({
+    communities: Array
+})
 
-const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
+const form = useForm({
+    content: '',
+    link: '',
+    community_id: '',
+});
 
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
-
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-
-    ['clean']                                         // remove formatting button
-];
-
-
-
-
-
+const submit = () => {
+    form.post(route('request.store'), {
+        onFinish: () => form.reset('content', 'link'),
+    });
+};
 
 </script>
 
 
 <template>
     <Head title="Create Request" />
-    <form>
+    <form @submit.prevent="submit">
         <div>
             <label for="about" class="block text-sm font-medium text-gray-700">About</label>
             <div class="mt-1">
-                <QuillEditor theme="snow" :toolbar="toolbarOptions" />
+                <QuillEditor theme="snow" v-model:content="form.content" contentType="html"  toolbar="essential" />
             </div>
         </div>
 
@@ -52,6 +40,7 @@ const toolbarOptions = [
             <input
                 type="text"
                 name="code-link"
+                v-model="form.link"
                 id="code-link"
                 class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                 placeholder="www.example.com"
@@ -60,14 +49,16 @@ const toolbarOptions = [
         <div class="col-span-6 sm:col-span-3">
             <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
             <select
+            v-model="form.community_id"
                 id="country"
                 name="country"
                 autocomplete="country-name"
                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
+                <option
+                    v-for="community in props.communities"
+                    :value="community.id"
+                >{{ community.name }}</option>
             </select>
         </div>
         <button

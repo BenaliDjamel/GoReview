@@ -35,6 +35,11 @@ Route::get('/hello', function () {
     ]);
 });
 
-Route::get('/create', [RequestController::class, 'create']);
+Route::get('/requests', [RequestController::class, 'index'])->name('request.index')->middleware(['auth', 'verified']);
+Route::get('/create', [RequestController::class, 'create'])->name('request.create')->middleware(['auth', 'verified']);
+Route::post('/store', [RequestController::class, 'store'])->name('request.store')->middleware(['auth', 'verified']);
 
-require __DIR__.'/auth.php';
+
+
+
+require __DIR__ . '/auth.php';
