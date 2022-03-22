@@ -9,6 +9,11 @@ class Request extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'created_at' => 'datetime:F d, Y ',
+    ];
+
+
     public function likes()
     {
         return $this->hasMany(Like::class);

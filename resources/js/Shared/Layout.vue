@@ -6,18 +6,18 @@ import Navbar from "./Navbar.vue";
 
 <template>
  
-  <section class="p-6 bg-gray-200">
+  <section class="p-4 bg-gray-800">
     <header class="flex justify-between">
       <div class="flex items-center">
-        <h1 class="font-bold text-lg">
+        <h1 class="font-bold text-white text-lg">
           My App
         </h1>
       </div>
 
-      <Navbar />
+      <Navbar  />
     </header>
   </section>
-    <section class="p-6">
+    <section class="p-6 bg-gray-100" >
         <div class="">
             <slot />
         </div>
