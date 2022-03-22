@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Community extends Model
 {
     use HasFactory;
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
 }
