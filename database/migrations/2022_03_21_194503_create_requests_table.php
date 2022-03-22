@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->text('content');
             $table->string('link');
-            $table->boolean('closed');
+            $table->boolean('closed')->default(0);
             $table->timestamps();
         });
     }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Request;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'content' => $this->faker->paragraph(),
+            'user_id' => User::factory(),
+            'request_id' => Request::factory()
         ];
     }
 }

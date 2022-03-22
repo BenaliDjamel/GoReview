@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Community;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class RequestFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'content' => $this->faker->text(),
+            'link' => $this->faker->url(),
+            'user_id' => User::factory(),
+            'community_id' => Community::factory()
         ];
     }
 }

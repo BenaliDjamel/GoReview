@@ -17,7 +17,7 @@ class CommunityFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'php'
         ];
     }
 }
