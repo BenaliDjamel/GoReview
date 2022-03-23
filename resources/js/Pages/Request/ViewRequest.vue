@@ -1,5 +1,7 @@
 <script setup>
 import UserRequest from '@/Components/Request/UserRequest.vue';
+import ReviewRequest from '@/Components/Request/ReviewRequest.vue';
+import SubmitReview from '../../Components/Request/SubmitReview.vue';
 
 const props = defineProps({
     request: Object,
@@ -10,7 +12,7 @@ const props = defineProps({
 
 
 <template>
-<div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
         <div
             class="flex flex-col md:w-44 lg:w-64 h-screen hidden md:block py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600"
         >
@@ -139,9 +141,10 @@ const props = defineProps({
 
         <!-- start main section  -->
         <section class="col-span-2 md:col-span-3">
-           
-           <UserRequest  :request="request"/>
-          
+            <UserRequest :request="request" />
+            <SubmitReview />
+            <ReviewRequest v-for="comment in request.comments" :comment="comment" />
         </section>
         <!-- end main section -->
-    </div></template>
+    </div>
+</template>

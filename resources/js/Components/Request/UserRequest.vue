@@ -21,6 +21,16 @@ const deleteRequest = () => {
 
 
 const comments = computed(() => {
+    return props.request.comments
+})
+
+const communityName =  computed(() => {
+    return props.request.community.name
+})
+
+
+
+const numberOfAnswers = computed(() => {
     return props.request.comments.length
 })
 
@@ -86,12 +96,11 @@ const comments = computed(() => {
 
             <div class="mt-8">
                 <Link
-               
-                  :href="`/request/${props.request.id}`"
+                    :href="`/request/${props.request.id}`"
                     class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
-                >{{props.request.title}}</Link>
+                >{{ props.request.title }}</Link>
 
-                <div class="mt-6 my-class bg-gray-50">
+                <div class="mt-6 bg-gray-50">
                     <QuillEditor
                         class="language-plaintext"
                         :toolbar="[]"
@@ -127,9 +136,11 @@ const comments = computed(() => {
 
                     <a
                         class="ml-2 text-gray-700 cursor-pointer dark:text-gray-200"
-                    >{{ comments }} answers</a>
+                    >{{ numberOfAnswers }} reviews</a>
                 </div>
             </div>
+
+         
         </div>
     </div>
 </template>
