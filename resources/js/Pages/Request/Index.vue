@@ -1,13 +1,14 @@
 <script setup>
-import { Head } from "@inertiajs/inertia-vue3";
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import UserRequest from '@/Components/Request/UserRequest.vue';
 
 const props = defineProps({
     requests: Array
 })
 
-
+/* const comments = computed(() => {
+    return props.requests.comments.length
+}) 
+ */
 
 </script>
 
@@ -141,57 +142,9 @@ const props = defineProps({
 
         <!-- start main section  -->
         <section class="col-span-2 md:col-span-3">
-            <div>
-                <div class="md:max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <div class="flex items-center justify-between">
-                        <span
-                            class="text-sm font-light text-gray-600 dark:text-gray-400"
-                        >{{props.requests[0].created_at}}</span>
-                        <a
-                            class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
-                        >Design</a>
-                    </div>
-
-                    <div class="mt-8">
-                        <a
-                            href="#"
-                            class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
-                        >Accessibility tools for designers and developers</a>
-                       <div class="mt-6">
-                            <QuillEditor
-                            theme="snow"
-                            contentType="html"
-                            toolbar="essential"
-                            readonly="true"
-                            :content="props.requests[0].content"
-                        />
-                       </div>
-                    </div>
-
-                    <div class="mt-4">
-                        Link :
-                        <a :href="props.requests[0].link" class="text-blue-600">{{ props.requests[0].link }}</a>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4">
-                        <a
-                            href="#"
-                            class="text-blue-600 dark:text-blue-400 hover:underline"
-                        >Read more</a>
-
-                        <div class="flex items-center">
-                            <img
-                                class="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80"
-                                alt="avatar"
-                            />
-                            <a
-                                class="font-bold text-gray-700 cursor-pointer dark:text-gray-200"
-                            >Khatab wedaa</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
+           <UserRequest  v-for="request in props.requests" :request="request"/>
+          
         </section>
         <!-- end main section -->
     </div>

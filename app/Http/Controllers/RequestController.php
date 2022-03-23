@@ -12,12 +12,11 @@ class RequestController extends Controller
 
     public function index(Request $request)
     {
+
         return Inertia::render('Request/Index', [
 
-            'requests' => $request->user()->requests()->orderBy('created_at')->get([
-                    'id', 'content',
-                    'link', 'community_id', 'created_at'
-                ])
+            'requests' => $request->user()->requests()->with('comments')->get(),
+
         ]);
     }
 

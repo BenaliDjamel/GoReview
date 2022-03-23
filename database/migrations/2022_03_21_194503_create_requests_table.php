@@ -27,6 +27,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->longText('content');
+            $table->string('title');
             $table->string('link')->nullable();
             $table->boolean('closed')->default(0);
             $table->timestamps();

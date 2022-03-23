@@ -10,7 +10,7 @@ class Request extends Model
     use HasFactory;
 
     protected $casts = [
-        'created_at' => 'datetime:F d, Y ',
+        'created_at' => 'datetime:F d, Y',
     ];
 
 
