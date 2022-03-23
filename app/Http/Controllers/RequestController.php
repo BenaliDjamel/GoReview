@@ -47,4 +47,13 @@ class RequestController extends Controller
 
         return redirect('/');
     }
+
+    public function delete(Request $req, $id)
+    {
+        $request = ModelsRequest::find($id);
+
+        $request->delete();
+
+        return redirect('/');
+    }
 }

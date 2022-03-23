@@ -1,17 +1,22 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { computed, ref } from 'vue';
 
 
-const dropDown = ref(true)
+const dropdown = ref(false)
 
 
-const toggleDropdown = () => dropDown.value = !dropDown.value;
 
 const props = defineProps({
     'request': Object
 })
+
+
+const deleteRequest = () => {
+    Inertia.delete(`/request/${props.request.id}`)
+}
 
 
 const comments = computed(() => {
@@ -33,7 +38,7 @@ const comments = computed(() => {
                     <div class="relative inline-block">
                         <!-- Dropdown toggle button -->
                         <button
-                            @click="dropDown = !dropDown"
+                            @click="dropdown = !dropdown"
                             class="relative z-10 block p-2 text-gray-700 bg-gray-100 border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none"
                         >
                             <svg
@@ -51,8 +56,8 @@ const comments = computed(() => {
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div
-                            :class="{ 'hidden': dropDown }"
+                        <div v-show="dropdown"
+                          
                             class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
                         >
                             <a
@@ -60,8 +65,9 @@ const comments = computed(() => {
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                             >Edit Request</a>
                             <a
-                                href="#"
-                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                                as="button"
+                                @click="deleteRequest"
+                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                             >Delete Request</a>
                             <a
                                 href="#"
@@ -124,54 +130,3 @@ const comments = computed(() => {
         </div>
     </div>
 </template>
-
-<style lang="scss">
-/* Basic editor styles */
-.ProseMirror {
-    > * + * {
-        margin-top: 0.75em;
-    }
-    ul,
-    ol {
-        padding: 0 1rem;
-    }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        line-height: 1.1;
-    }
-    code {
-        background-color: rgba(#464646, 0.1);
-        color: #616161;
-    }
-    pre {
-        background: #0d0d0d;
-        color: #fff;
-        font-family: "JetBrainsMono", monospace;
-        padding: 0.75rem 1rem;
-        border-radius: 0.5rem;
-        code {
-            color: inherit;
-            padding: 0;
-            background: none;
-            font-size: 0.8rem;
-        }
-    }
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-    blockquote {
-        padding-left: 1rem;
-        border-left: 2px solid rgba(#0d0d0d, 0.1);
-    }
-    hr {
-        border: none;
-        border-top: 2px solid rgba(#0d0d0d, 0.1);
-        margin: 2rem 0;
-    }
-}
-</style>
