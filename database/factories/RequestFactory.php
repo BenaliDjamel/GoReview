@@ -20,6 +20,7 @@ class RequestFactory extends Factory
     {
         return [
             'content' => $this->faker->text(),
+            'title' => $this->faker->title(),
             'link' => $this->faker->url(),
             'user_id' => User::factory(),
             'community_id' => Community::factory()

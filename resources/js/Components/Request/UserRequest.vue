@@ -3,9 +3,12 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { computed } from 'vue';
 
+
+
 const props = defineProps({
     'request': Object
 })
+
 
 const comments = computed(() => {
     return props.request.comments.length
@@ -31,12 +34,14 @@ const comments = computed(() => {
                     href="#"
                     class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
                 >Accessibility tools for designers and developers</a>
-                <div class="mt-6">
+
+                <div class="mt-6 my-class bg-gray-50">
                     <QuillEditor
-                        theme="snow"
-                        contentType="html"
-                        toolbar="essential"
+                        class="language-plaintext"
+                        :toolbar="[]"
+                        theme
                         :readOnly="true"
+                        contentType="html"
                         :content="props.request.content"
                     />
                 </div>
@@ -72,3 +77,54 @@ const comments = computed(() => {
         </div>
     </div>
 </template>
+
+<style lang="scss">
+/* Basic editor styles */
+.ProseMirror {
+    > * + * {
+        margin-top: 0.75em;
+    }
+    ul,
+    ol {
+        padding: 0 1rem;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        line-height: 1.1;
+    }
+    code {
+        background-color: rgba(#464646, 0.1);
+        color: #616161;
+    }
+    pre {
+        background: #0d0d0d;
+        color: #fff;
+        font-family: "JetBrainsMono", monospace;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        code {
+            color: inherit;
+            padding: 0;
+            background: none;
+            font-size: 0.8rem;
+        }
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    blockquote {
+        padding-left: 1rem;
+        border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+    hr {
+        border: none;
+        border-top: 2px solid rgba(#0d0d0d, 0.1);
+        margin: 2rem 0;
+    }
+}
+</style>

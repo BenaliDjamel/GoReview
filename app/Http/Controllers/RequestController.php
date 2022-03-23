@@ -31,11 +31,13 @@ class RequestController extends Controller
     {
         $request->validate([
             'content' => ['bail', 'required', 'min:40'],
+            'title' => ['bail', 'required', 'max:255'],
             'community_id' => ['required'],
             'link' => ['nullable', 'url']
         ]);
 
         $newRequest = new ModelsRequest();
+        $newRequest->title = $request->title;
         $newRequest->content = $request->content;
         $newRequest->link = $request->link;
         $newRequest->community_id = $request->community_id;

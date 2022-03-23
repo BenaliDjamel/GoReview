@@ -8,6 +8,7 @@ const props = defineProps({
 })
 
 const form = useForm({
+    title: '',
     content: '',
     link: '',
     community_id: '',
@@ -15,7 +16,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('request.store'), {
-        onFinish: () => form.reset('content', 'link'),
+        onFinish: () => form.reset('title', 'content', 'link'),
     });
 };
 
@@ -25,10 +26,28 @@ const submit = () => {
 <template>
     <Head title="Create Request" />
     <form @submit.prevent="submit">
+
+    <label for="code-title" class="block text-sm font-medium text-gray-700">Title</label>
+        <div class="mt-1 flex rounded-md shadow-sm">
+          
+            <input
+                type="text"
+                name="code-title"
+                v-model="form.title"
+                id="code-title"
+                class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                
+            />
+        </div>
         <div>
             <label for="about" class="block text-sm font-medium text-gray-700">About</label>
             <div class="mt-1">
-                <QuillEditor theme="snow" v-model:content="form.content" contentType="html"  toolbar="essential" />
+                <QuillEditor
+                    theme="snow"
+                    v-model:content="form.content"
+                    contentType="html"
+                    toolbar="essential"
+                />
             </div>
         </div>
 
@@ -49,7 +68,7 @@ const submit = () => {
         <div class="col-span-6 sm:col-span-3">
             <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
             <select
-            v-model="form.community_id"
+                v-model="form.community_id"
                 id="country"
                 name="country"
                 autocomplete="country-name"
@@ -61,7 +80,7 @@ const submit = () => {
                 >{{ community.name }}</option>
             </select>
         </div>
-        <button
+        <button 
             type="submit"
             class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
         >Submit</button>
