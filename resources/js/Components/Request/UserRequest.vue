@@ -1,5 +1,6 @@
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
+import { Link } from '@inertiajs/inertia-vue3'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { computed, ref } from 'vue';
@@ -10,7 +11,7 @@ const dropdown = ref(false)
 
 
 const props = defineProps({
-    'request': Object
+    request: Object
 })
 
 
@@ -28,7 +29,7 @@ const comments = computed(() => {
 
 <template>
     <div class="mb-8">
-        <div class="md:max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="md:max-w-4xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="flex items-center justify-between">
                 <span
                     class="text-sm font-light text-gray-600 dark:text-gray-400"
@@ -56,14 +57,15 @@ const comments = computed(() => {
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div v-show="dropdown"
-                          
+                        <div
+                            v-show="dropdown"
                             class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
                         >
-                            <a
-                                href="#"
+                            <Link
+                                as="button"
+                                :href="`/request/${props.request.id}/edit`"
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >Edit Request</a>
+                            >Edit Request</Link>
                             <a
                                 as="button"
                                 @click="deleteRequest"
@@ -83,10 +85,11 @@ const comments = computed(() => {
             </div>
 
             <div class="mt-8">
-                <a
-                    href="#"
+                <Link
+               
+                  :href="`/request/${props.request.id}`"
                     class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
-                >Accessibility tools for designers and developers</a>
+                >{{props.request.title}}</Link>
 
                 <div class="mt-6 my-class bg-gray-50">
                     <QuillEditor

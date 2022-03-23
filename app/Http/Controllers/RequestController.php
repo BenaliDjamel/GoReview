@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Community;
-use App\Models\Request as ModelsRequest;
+use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +15,18 @@ class RequestController extends Controller
 
         return Inertia::render('Request/Index', [
 
-            'requests' => $request->user()->requests()->with('comments')->get(),
+            'requests' => $request->user()->requests()->with(['comments'])->get(),
+            //  'community' => $request->user()->requests()->with(['community'])->get(),
+
+        ]);
+    }
+    public function view(Request $req, $id)
+    {
+        $request = RequestModel::with(['comments.user', 'community:id,name'])
+            ->where('id', $id)->first();
+
+        return Inertia::render('Request/ViewRequest', [
+            'request' => $request
 
         ]);
     }
@@ -36,7 +47,7 @@ class RequestController extends Controller
             'link' => ['nullable', 'url']
         ]);
 
-        $newRequest = new ModelsRequest();
+        $newRequest = new RequestModel();
         $newRequest->title = $request->title;
         $newRequest->content = $request->content;
         $newRequest->link = $request->link;
@@ -48,9 +59,38 @@ class RequestController extends Controller
         return redirect('/');
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => ['bail', 'required', 'min:40'],
+            'title' => ['bail', 'required', 'max:255'],
+            'community_id' => ['required'],
+            'link' => ['nullable', 'url']
+        ]);
+
+        $newRequest =  RequestModel::find($id);
+        $newRequest->title = $request->title;
+        $newRequest->content = $request->content;
+        $newRequest->link = $request->link;
+        $newRequest->community_id = $request->community_id;
+        $newRequest->user_id = $request->user()->id;
+
+        $newRequest->save();
+
+        return redirect('/requests');
+    }
+
+    public function edit(Request $req, $id)
+    {
+        return Inertia::render('Request/EditRequest', [
+            'request' => RequestModel::find($id),
+            'communities' => Community::all(['id', 'name'])
+        ]);
+    }
+
     public function delete(Request $req, $id)
     {
-        $request = ModelsRequest::find($id);
+        $request = RequestModel::find($id);
 
         $request->delete();
 
