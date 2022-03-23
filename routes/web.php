@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,10 @@ Route::delete('/request/{id}', [RequestController::class, 'delete'])->name('requ
 Route::get('/request/{id}/edit', [RequestController::class, 'edit'])->name('request.edit')->middleware(['auth', 'verified']);
 Route::put('/request/{id}', [RequestController::class, 'update'])->name('request.update')->middleware(['auth', 'verified']);
 
+
+// Reviews routes
+
+Route::post('/review/request/{id}', [ReviewController::class, 'store'])->name('review.store')->middleware(['auth', 'verified']);
 
 
 

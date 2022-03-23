@@ -15,14 +15,12 @@ class RequestController extends Controller
 
         return Inertia::render('Request/Index', [
 
-            'requests' => $request->user()->requests()->with(['comments'])->get(),
-            //  'community' => $request->user()->requests()->with(['community'])->get(),
-
+            'requests' => $request->user()->requests()->with(['reviews'])->get(),
         ]);
     }
     public function view(Request $req, $id)
     {
-        $request = RequestModel::with(['comments.user', 'community:id,name'])
+        $request = RequestModel::with(['reviews.user', 'community:id,name'])
             ->where('id', $id)->first();
 
         return Inertia::render('Request/ViewRequest', [

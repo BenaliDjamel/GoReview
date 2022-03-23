@@ -142,8 +142,8 @@ const props = defineProps({
         <!-- start main section  -->
         <section class="col-span-2 md:col-span-3">
             <UserRequest :request="request" />
-            <SubmitReview />
-            <ReviewRequest v-for="comment in request.comments" :comment="comment" />
+            <SubmitReview :requestId="request.id"/>
+            <ReviewRequest v-for="review in request.reviews" :review="review" />
         </section>
         <!-- end main section -->
     </div>

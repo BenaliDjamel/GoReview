@@ -19,9 +19,9 @@ class Request extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function comments()
+    public function reviews()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Review::class);
     }
 
     public function user()

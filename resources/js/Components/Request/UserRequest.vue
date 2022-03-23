@@ -20,8 +20,8 @@ const deleteRequest = () => {
 }
 
 
-const comments = computed(() => {
-    return props.request.comments
+const reviews = computed(() => {
+    return props.request.reviews
 })
 
 const communityName =  computed(() => {
@@ -31,7 +31,7 @@ const communityName =  computed(() => {
 
 
 const numberOfAnswers = computed(() => {
-    return props.request.comments.length
+    return props.request.reviews.length
 })
 
 </script>

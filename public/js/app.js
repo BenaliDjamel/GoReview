@@ -22128,7 +22128,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    comment: Object
+    review: Object
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
@@ -22159,14 +22159,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vueup_vue_quill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vueup/vue-quill */ "./node_modules/@vueup/vue-quill/dist/vue-quill.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _vueup_vue_quill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vueup/vue-quill */ "./node_modules/@vueup/vue-quill/dist/vue-quill.esm-bundler.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    requestId: Number
+  },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
+    var props = __props;
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
+      content: ''
+    });
+
+    var submit = function submit() {
+      form.post(route('review.store', props.requestId), {
+        onFinish: function onFinish() {
+          return form.reset('content');
+        }
+      });
+    };
+
     var __returned__ = {
-      QuillEditor: _vueup_vue_quill__WEBPACK_IMPORTED_MODULE_0__.QuillEditor
+      props: props,
+      form: form,
+      submit: submit,
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
+      QuillEditor: _vueup_vue_quill__WEBPACK_IMPORTED_MODULE_1__.QuillEditor
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -22213,20 +22235,20 @@ __webpack_require__.r(__webpack_exports__);
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia["delete"]("/request/".concat(props.request.id));
     };
 
-    var comments = (0,vue__WEBPACK_IMPORTED_MODULE_4__.computed)(function () {
-      return props.request.comments;
+    var reviews = (0,vue__WEBPACK_IMPORTED_MODULE_4__.computed)(function () {
+      return props.request.reviews;
     });
     var communityName = (0,vue__WEBPACK_IMPORTED_MODULE_4__.computed)(function () {
       return props.request.community.name;
     });
     var numberOfAnswers = (0,vue__WEBPACK_IMPORTED_MODULE_4__.computed)(function () {
-      return props.request.comments.length;
+      return props.request.reviews.length;
     });
     var __returned__ = {
       dropdown: dropdown,
       props: props,
       deleteRequest: deleteRequest,
-      comments: comments,
+      reviews: reviews,
       communityName: communityName,
       numberOfAnswers: numberOfAnswers,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia,
@@ -23522,12 +23544,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     theme: "",
     readOnly: true,
     contentType: "html",
-    content: $setup.props.comment.content
+    content: $setup.props.review.content
   }, null, 8
   /* PROPS */
-  , ["content"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.comment.user.name), 1
+  , ["content"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.review.user.name), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.comment.created_at), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.review.created_at), 1
   /* TEXT */
   )]), _hoisted_11])])])]);
 }
@@ -23557,23 +23579,34 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_3 = {
+var _hoisted_3 = ["onSubmit"];
+var _hoisted_4 = {
   "class": "mt-4 text-sm sm:h-24 md:h-36 dark:text-gray-400"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "submit",
   "class": "px-4 py-2 mt-4 sm:mt-12 font-medium text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
 }, "Submit", -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["QuillEditor"], {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.submit, ["prevent"])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["QuillEditor"], {
     toolbar: "essential",
     theme: "snow",
-    content: "Your reviw goes here!",
+    content: $setup.form.content,
+    "onUpdate:content": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.content = $event;
+    }),
     contentType: "html"
-  })]), _hoisted_4]);
+  }, null, 8
+  /* PROPS */
+  , ["content"])]), _hoisted_5], 40
+  /* PROPS, HYDRATE_EVENTS */
+  , _hoisted_3)]);
 }
 
 /***/ }),
@@ -25123,12 +25156,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     request: $props.request
   }, null, 8
   /* PROPS */
-  , ["request"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SubmitReview"]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.request.comments, function (comment) {
+  , ["request"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SubmitReview"], {
+    requestId: $props.request.id
+  }, null, 8
+  /* PROPS */
+  , ["requestId"]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.request.reviews, function (review) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ReviewRequest"], {
-      comment: comment
+      review: review
     }, null, 8
     /* PROPS */
-    , ["comment"]);
+    , ["review"]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end main section ")]);
