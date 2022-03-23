@@ -1,9 +1,13 @@
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 
+const dropDown = ref(true)
+
+
+const toggleDropdown = () => dropDown.value = !dropDown.value;
 
 const props = defineProps({
     'request': Object
@@ -24,9 +28,52 @@ const comments = computed(() => {
                 <span
                     class="text-sm font-light text-gray-600 dark:text-gray-400"
                 >{{ props.request.created_at }}</span>
-                <a
-                    class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
-                >Design</a>
+
+                <div class="flex items-center justify-center">
+                    <div class="relative inline-block">
+                        <!-- Dropdown toggle button -->
+                        <button
+                            @click="dropDown = !dropDown"
+                            class="relative z-10 block p-2 text-gray-700 bg-gray-100 border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none"
+                        >
+                            <svg
+                                class="w-5 h-5 text-gray-800 dark:text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown menu -->
+                        <div
+                            :class="{ 'hidden': dropDown }"
+                            class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+                        >
+                            <a
+                                href="#"
+                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >Edit Request</a>
+                            <a
+                                href="#"
+                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >Delete Request</a>
+                            <a
+                                href="#"
+                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >Invite Reviewer</a>
+                            <a
+                                href="#"
+                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >Close Request</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-8">
