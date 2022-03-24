@@ -16,8 +16,6 @@ const submit = () => {
 
         onSuccess: () => editor.value.setHTML(''),
     });
-
-
 };
 
 

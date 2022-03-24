@@ -29,6 +29,23 @@ class ReviewController extends Controller
         return redirect()->route('request.view', ['id' => $requested->id]);
     }
 
+    public function update(Request $req, $id, $requestId)
+    {
+
+        $requested = RequestModel::findOrFail($requestId);
+
+        $req->validate([
+            'content' => ['bail', 'required', 'min:40'],
+        ]);
+
+        $review =  Review::findOrFail($id);
+        $review->content = $req->content;
+        
+        $review->save();
+
+        return redirect()->route('request.view', ['id' => $requested->id]);
+    }
+
     public function delete($id, $requestId)
     {
         $review = Review::findOrFail($id);

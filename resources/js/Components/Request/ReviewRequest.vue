@@ -1,11 +1,34 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
 import { QuillEditor } from '@vueup/vue-quill'
-
+import { ref } from 'vue';
 
 
 const props = defineProps({
     review: Object
 })
+
+const edit = ref(false)
+
+const form = useForm({
+    content: props.review.content
+});
+
+
+const editReview = () => {
+    edit.value = true
+}
+
+const submit = () => {
+    form.put(route('review.update', { id: props.review.id, requestId: props.review.request_id }), {
+        onSuccess: () => {
+            edit.value = false
+
+        },
+    });
+};
+
+
 </script>
 
 <template>
@@ -37,14 +60,14 @@ const props = defineProps({
                     <div
                         class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
                     >
-                        <a
-                            href="#"
+                        <button
+                            @click="editReview"
                             class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >Edit</a>
+                        >Edit</button>
                         <Link
-                        as="button"
-                        method="delete"
-                            :href="route('review.delete', {id: props.review.id, requestId: props.review.request_id})"
+                            as="button"
+                            method="delete"
+                            :href="route('review.delete', { id: props.review.id, requestId: props.review.request_id })"
                             class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                         >Delete</Link>
                     </div>
@@ -54,14 +77,24 @@ const props = defineProps({
 
         <div class="p-6">
             <div class="mt-2 text-sm bg-gray-50 dark:text-gray-400">
-                <QuillEditor
-                    class="language-plaintext"
-                    :toolbar="[]"
-                    theme
-                    :readOnly="true"
-                    contentType="html"
-                    :content="review.content"
-                />
+                <template v-if="edit">
+                    <QuillEditor
+                        toolbar="essential"
+                        theme="snow"
+                        :readOnly="false"
+                        contentType="html"
+                        v-model:content="form.content"
+                    />
+                </template>
+                <template v-else>
+                    <QuillEditor
+                        :toolbar="[]"
+                        theme
+                        :readOnly="true"
+                        contentType="html"
+                        :content="review.content"
+                    />
+                </template>
             </div>
 
             <div class="mt-8">
@@ -101,6 +134,14 @@ const props = defineProps({
                         </svg>
                         <span class="text-center">67</span>
                     </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button
+                        v-if="edit"
+                        @click="submit"
+                        class="mt-4 px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                    >Submit</button>
                 </div>
             </div>
         </div>
