@@ -9,11 +9,11 @@ const props = defineProps({
 const form = useForm({
     content: ''
 });
+
 const editor = ref()
 
 const submit = () => {
     form.post(route('review.store', props.requestId), {
-
         onSuccess: () => editor.value.setHTML(''),
     });
 };

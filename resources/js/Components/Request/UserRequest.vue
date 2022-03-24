@@ -8,6 +8,7 @@ import { computed, onMounted, ref } from 'vue';
 
 const dropdown = ref(false)
 
+
 const props = defineProps({
     request: Object,
 })
@@ -22,7 +23,7 @@ const numberOfReviews = computed(() => {
 
 
 <template>
-    <div class="mb-8">
+    <div   class="mb-8">
         <div class="md:max-w-4xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="flex items-center justify-between">
                 <div>

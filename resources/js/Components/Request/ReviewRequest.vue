@@ -9,6 +9,8 @@ const props = defineProps({
 })
 
 const edit = ref(false)
+const dropdown = ref(false)
+
 
 const form = useForm({
     content: props.review.content
@@ -18,6 +20,7 @@ const form = useForm({
 const editReview = () => {
     edit.value = true
 }
+
 
 const submit = () => {
     form.put(route('review.update', { id: props.review.id, requestId: props.review.request_id }), {
@@ -33,6 +36,7 @@ const submit = () => {
 
 <template>
     <div
+       
         class="md:max-w-4xl mb-6 px-8 py-4 bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800"
     >
         <div class="flex justify-end">
@@ -40,6 +44,7 @@ const submit = () => {
                 <div class="relative inline-block">
                     <!-- Dropdown toggle button -->
                     <button
+                        @click="dropdown = !dropdown"
                         class="relative z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none"
                     >
                         <svg
@@ -58,6 +63,7 @@ const submit = () => {
 
                     <!-- Dropdown menu -->
                     <div
+                        v-show="dropdown"
                         class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
                     >
                         <button
@@ -76,7 +82,7 @@ const submit = () => {
         </div>
 
         <div class="p-6">
-            <div class="mt-2 text-sm bg-gray-50 dark:text-gray-400">
+            <div class="mt-2 text-sm sm:h-24 md:h-36 lg:h-auto bg-gray-50 dark:text-gray-400">
                 <template v-if="edit">
                     <QuillEditor
                         toolbar="essential"
@@ -97,7 +103,7 @@ const submit = () => {
                 </template>
             </div>
 
-            <div class="mt-8">
+            <div class="mt-8 lg:mt-20">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <div class="flex items-center">
