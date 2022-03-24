@@ -20,7 +20,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreignId('request_id')
+            $table->foreignId('review_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

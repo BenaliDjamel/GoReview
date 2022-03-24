@@ -14,7 +14,7 @@ class Like extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function request()
+    public function review()
     {
         return $this->belongsTo(Request::class);
     }

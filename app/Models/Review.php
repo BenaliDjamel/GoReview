@@ -23,4 +23,9 @@ class Review extends Model
     {
         return $this->belongsTo(Request::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

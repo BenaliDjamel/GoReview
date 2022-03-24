@@ -1,7 +1,8 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { QuillEditor } from '@vueup/vue-quill'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 
 const props = defineProps({
@@ -31,12 +32,29 @@ const submit = () => {
     });
 };
 
+const likeReview = () => {
+    Inertia.post(route('like.store', { id: props.review.id }),
+     { preserveScroll: true });
+}
+const unlikeReview = () => {
+    Inertia.delete(route('like.delete', { id: props.review.id }),
+     { preserveScroll: true });
+}
+
+const isLikedByAuthUser = computed(() => {
+    const likes = props.review.likes;
+    const userId = usePage().props.value.auth.user.id
+    return likes.map(obj => obj.user_id).includes(userId)
+})
+
+const likeCounts = computed(() => {
+    return props.review.likes.length
+})
 
 </script>
 
 <template>
     <div
-       
         class="md:max-w-4xl mb-6 px-8 py-4 bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800"
     >
         <div class="flex justify-end">
@@ -124,21 +142,42 @@ const submit = () => {
                     <div
                         class="flex flex-col items-center text-gray-400 px-2 rounded cursor-pointer"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                        </svg>
-                        <span class="text-center">67</span>
+                        <template v-if="isLikedByAuthUser">
+                            <svg
+                                @click="unlikeReview"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 text-red-500"
+                                fill="red"
+                                viewBox="0 0 24 24"
+                                stroke="red"
+                                stroke-width="2"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </svg>
+                        </template>
+
+                        <template v-else>
+                            <svg
+                                @click="likeReview"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </svg>
+                        </template>
+                        <span class="text-center">{{ likeCounts }}</span>
                     </div>
                 </div>
 

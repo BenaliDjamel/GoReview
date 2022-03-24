@@ -20,7 +20,7 @@ class RequestController extends Controller
     }
     public function view(Request $req, $id)
     {
-        $request = RequestModel::with(['reviews.user', 'community:id,name'])
+        $request = RequestModel::with(['reviews.user','reviews.likes',  'community:id,name'])
             ->where('id', $id)->first();
 
         return Inertia::render('Request/ViewRequest', [

@@ -1,8 +1,8 @@
 <script setup>
 import UserRequest from '@/Components/Request/UserRequest.vue';
 import ReviewRequest from '@/Components/Request/ReviewRequest.vue';
-import SubmitReview from '../../Components/Request/SubmitReview.vue';
 import { computed } from 'vue';
+import SubmitReview from '@/Components/Review/SubmitReview.vue';
 
 const props = defineProps({
     request: Object,

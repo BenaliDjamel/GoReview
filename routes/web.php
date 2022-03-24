@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Foundation\Application;
@@ -53,6 +54,9 @@ Route::post('/review/request/{id}', [ReviewController::class, 'store'])->name('r
 Route::delete('/review/{id}/request/{requestId}', [ReviewController::class, 'delete'])->name('review.delete')->middleware(['auth', 'verified']);
 Route::put('/review/{id}/request/{requestId}', [ReviewController::class, 'update'])->name('review.update')->middleware(['auth', 'verified']);
 
+// likes routes
+Route::post('/like/review/{id}', [LikeController::class, 'store'])->name('like.store')->middleware(['auth', 'verified']);
+Route::delete('/like/review/{id}', [LikeController::class, 'delete'])->name('like.delete')->middleware(['auth', 'verified']);
 
 
 require __DIR__ . '/auth.php';
