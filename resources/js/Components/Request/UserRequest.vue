@@ -3,36 +3,20 @@ import { Inertia } from "@inertiajs/inertia";
 import { Link } from '@inertiajs/inertia-vue3'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 
 const dropdown = ref(false)
 
-
-
 const props = defineProps({
-    request: Object
+    request: Object,
 })
 
 
-const deleteRequest = () => {
-    Inertia.delete(`/request/${props.request.id}`)
-}
-
-
-const reviews = computed(() => {
-    return props.request.reviews
-})
-
-const communityName =  computed(() => {
-    return props.request.community.name
-})
-
-
-
-const numberOfAnswers = computed(() => {
+const numberOfReviews = computed(() => {
     return props.request.reviews.length
 })
+
 
 </script>
 
@@ -41,9 +25,16 @@ const numberOfAnswers = computed(() => {
     <div class="mb-8">
         <div class="md:max-w-4xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="flex items-center justify-between">
-                <span
-                    class="text-sm font-light text-gray-600 dark:text-gray-400"
-                >{{ props.request.created_at }}</span>
+                <div>
+                    <span
+                        class="text-sm font-light text-gray-600 dark:text-gray-400"
+                    >{{ request.created_at }}</span>
+
+                    <span
+                        v-if="request.closed"
+                        class="text-sm ml-6 p-1.5 bg-green-600 rounded-full text-white dark:text-gray-400"
+                    >Closed</span>
+                </div>
 
                 <div class="flex items-center justify-center">
                     <div class="relative inline-block">
@@ -76,19 +67,24 @@ const numberOfAnswers = computed(() => {
                                 :href="`/request/${props.request.id}/edit`"
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                             >Edit Request</Link>
-                            <a
+                            <Link
                                 as="button"
-                                @click="deleteRequest"
+                                method="delete"
+                                :href="route('request.delete', props.request.id)"
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
-                            >Delete Request</a>
+                            >Delete Request</Link>
                             <a
+                                v-if="!request.closed"
                                 href="#"
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                             >Invite Reviewer</a>
-                            <a
-                                href="#"
+                            <Link
+                                v-if="!request.closed && numberOfReviews"
+                                as="button"
+                                method="put"
+                                :href="route('request.close', props.request.id)"
                                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >Close Request</a>
+                            >Close Request</Link>
                         </div>
                     </div>
                 </div>
@@ -96,9 +92,9 @@ const numberOfAnswers = computed(() => {
 
             <div class="mt-8">
                 <Link
-                    :href="`/request/${props.request.id}`"
+                    :href="`/request/${request.id}`"
                     class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
-                >{{ props.request.title }}</Link>
+                >{{ request.title }}</Link>
 
                 <div class="mt-6 bg-gray-50">
                     <QuillEditor
@@ -107,17 +103,17 @@ const numberOfAnswers = computed(() => {
                         theme
                         :readOnly="true"
                         contentType="html"
-                        :content="props.request.content"
+                        :content="request.content"
                     />
                 </div>
             </div>
 
             <div class="mt-4">
                 Link :
-                <a :href="props.request.link" class="text-blue-600">{{ props.request.link }}</a>
+                <a :href="request.link" class="text-blue-600">{{ request.link }}</a>
             </div>
 
-            <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center justify-between mt-6">
                 <div class="flex items-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -136,11 +132,9 @@ const numberOfAnswers = computed(() => {
 
                     <a
                         class="ml-2 text-gray-700 cursor-pointer dark:text-gray-200"
-                    >{{ numberOfAnswers }} reviews</a>
+                    >{{ numberOfReviews }} review(s)</a>
                 </div>
             </div>
-
-         
         </div>
     </div>
 </template>

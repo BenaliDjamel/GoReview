@@ -2,9 +2,18 @@
 import UserRequest from '@/Components/Request/UserRequest.vue';
 import ReviewRequest from '@/Components/Request/ReviewRequest.vue';
 import SubmitReview from '../../Components/Request/SubmitReview.vue';
+import { computed } from 'vue';
 
 const props = defineProps({
     request: Object,
+})
+
+const numberOfReviews = computed(() => {
+    const reviews = props.request.reviews;
+
+    return reviews.length > 0 ?
+        `Your Request has ${reviews.length} Review(s)`
+        : 'No Reviews for this Request'
 })
 
 </script>
@@ -141,8 +150,9 @@ const props = defineProps({
 
         <!-- start main section  -->
         <section class="col-span-2 md:col-span-3">
-            <UserRequest :request="request" />
-            <SubmitReview :requestId="request.id"/>
+            <UserRequest :request="request"  />
+            <SubmitReview v-if="!request.closed" :requestId="request.id" />
+            <div class="my-8 text-xl">{{ numberOfReviews }}</div>
             <ReviewRequest v-for="review in request.reviews" :review="review" />
         </section>
         <!-- end main section -->

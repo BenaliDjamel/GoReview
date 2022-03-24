@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
 import { QuillEditor } from '@vueup/vue-quill'
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     requestId: Number
@@ -8,12 +9,18 @@ const props = defineProps({
 const form = useForm({
     content: ''
 });
+const editor = ref()
 
 const submit = () => {
     form.post(route('review.store', props.requestId), {
-        onFinish: () => form.reset( 'content'),
+
+        onSuccess: () => editor.value.setHTML(''),
     });
+
+
 };
+
+
 
 
 </script>
@@ -24,6 +31,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div class="mt-4 text-sm sm:h-24 md:h-36 dark:text-gray-400">
                 <QuillEditor
+                    ref="editor"
                     toolbar="essential"
                     theme="snow"
                     v-model:content="form.content"
@@ -31,7 +39,8 @@ const submit = () => {
                 />
             </div>
             <button
-            type="submit"
+                :disabled="form.processing"
+                type="submit"
                 class="px-4 py-2 mt-4 sm:mt-12 font-medium text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
             >Submit</button>
         </form>

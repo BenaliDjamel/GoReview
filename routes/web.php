@@ -44,6 +44,8 @@ Route::delete('/request/{id}', [RequestController::class, 'delete'])->name('requ
 Route::get('/request/{id}/edit', [RequestController::class, 'edit'])->name('request.edit')->middleware(['auth', 'verified']);
 Route::put('/request/{id}', [RequestController::class, 'update'])->name('request.update')->middleware(['auth', 'verified']);
 
+Route::put('/request/{id}/close', [RequestController::class, 'closeRequest'])->name('request.close')->middleware(['auth', 'verified']);
+
 
 // Reviews routes
 

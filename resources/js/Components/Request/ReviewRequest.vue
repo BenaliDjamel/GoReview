@@ -3,14 +3,16 @@ import { QuillEditor } from '@vueup/vue-quill'
 
 
 
-const props = defineProps({
+defineProps({
     review: Object
 })
 </script>
 
 <template>
     <div class="md:max-w-4xl mb-6 bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800">
+       
         <div class="p-6">
+          
             <div class="mt-2 text-sm bg-gray-50 dark:text-gray-400">
                 <QuillEditor
                     class="language-plaintext"
@@ -18,7 +20,7 @@ const props = defineProps({
                     theme
                     :readOnly="true"
                     contentType="html"
-                    :content="props.review.content"
+                    :content="review.content"
                 />
             </div>
 
@@ -34,11 +36,11 @@ const props = defineProps({
                             <a
                                 href="#"
                                 class="mx-2 font-semibold text-gray-700 dark:text-gray-200"
-                            >{{ props.review.user.name }}</a>
+                            >{{ review.user.name }}</a>
                         </div>
                         <span
                             class="mx-1 text-xs text-gray-600 dark:text-gray-300"
-                        >{{ props.review.created_at }}</span>
+                        >{{ review.created_at }}</span>
                     </div>
                     <div
                         class="flex flex-col items-center text-gray-400 px-2 rounded cursor-pointer"

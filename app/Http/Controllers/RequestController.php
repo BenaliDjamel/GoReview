@@ -54,7 +54,7 @@ class RequestController extends Controller
 
         $newRequest->save();
 
-        return redirect('/');
+        return redirect('/requests');
     }
 
     public function update(Request $request, $id)
@@ -66,16 +66,25 @@ class RequestController extends Controller
             'link' => ['nullable', 'url']
         ]);
 
-        $newRequest =  RequestModel::find($id);
-        $newRequest->title = $request->title;
-        $newRequest->content = $request->content;
-        $newRequest->link = $request->link;
-        $newRequest->community_id = $request->community_id;
-        $newRequest->user_id = $request->user()->id;
+        $updatedRequest =  RequestModel::find($id);
+        $updatedRequest->title = $request->title;
+        $updatedRequest->content = $request->content;
+        $updatedRequest->link = $request->link;
+        $updatedRequest->community_id = $request->community_id;
+        $updatedRequest->user_id = $request->user()->id;
 
-        $newRequest->save();
+        $updatedRequest->save();
 
         return redirect('/requests');
+    }
+
+    public function closeRequest($id)
+    {
+        $updatedRequest =  RequestModel::find($id);
+        $updatedRequest->closed = 1;
+        $updatedRequest->save();
+
+        return redirect()->route('request.view', ['id' => $updatedRequest->id]);
     }
 
     public function edit(Request $req, $id)
@@ -92,6 +101,6 @@ class RequestController extends Controller
 
         $request->delete();
 
-        return redirect('/');
+        return redirect('/requests');
     }
 }

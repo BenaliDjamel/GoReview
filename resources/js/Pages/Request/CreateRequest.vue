@@ -3,7 +3,7 @@ import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
-const props = defineProps({
+defineProps({
     communities: Array
 })
 
@@ -75,7 +75,7 @@ const submit = () => {
                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
                 <option
-                    v-for="community in props.communities"
+                    v-for="community in communities"
                     :value="community.id"
                 >{{ community.name }}</option>
             </select>

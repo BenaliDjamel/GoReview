@@ -1,7 +1,7 @@
 <script setup>
 import UserRequest from '@/Components/Request/UserRequest.vue';
 
-const props = defineProps({
+ defineProps({
     requests: Array,
 })
 
@@ -143,7 +143,7 @@ const props = defineProps({
         <!-- start main section  -->
         <section class="col-span-2 md:col-span-3">
            
-           <UserRequest  v-for="request in props.requests" :request="request"/>
+           <UserRequest  v-for="request in requests" :request="request"/>
           
         </section>
         <!-- end main section -->
