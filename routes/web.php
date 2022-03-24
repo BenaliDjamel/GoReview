@@ -50,6 +50,7 @@ Route::put('/request/{id}/close', [RequestController::class, 'closeRequest'])->n
 // Reviews routes
 
 Route::post('/review/request/{id}', [ReviewController::class, 'store'])->name('review.store')->middleware(['auth', 'verified']);
+Route::delete('/review/{id}/request/{requestId}', [ReviewController::class, 'delete'])->name('review.delete')->middleware(['auth', 'verified']);
 
 
 

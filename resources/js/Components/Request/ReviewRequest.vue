@@ -3,16 +3,56 @@ import { QuillEditor } from '@vueup/vue-quill'
 
 
 
-defineProps({
+const props = defineProps({
     review: Object
 })
 </script>
 
 <template>
-    <div class="md:max-w-4xl mb-6 bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800">
-       
+    <div
+        class="md:max-w-4xl mb-6 px-8 py-4 bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800"
+    >
+        <div class="flex justify-end">
+            <div class="flex items-center justify-center">
+                <div class="relative inline-block">
+                    <!-- Dropdown toggle button -->
+                    <button
+                        class="relative z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none"
+                    >
+                        <svg
+                            class="w-5 h-5 text-gray-800 dark:text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div
+                        class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+                    >
+                        <a
+                            href="#"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Edit</a>
+                        <Link
+                        as="button"
+                        method="delete"
+                            :href="route('review.delete', {id: props.review.id, requestId: props.review.request_id})"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Delete</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="p-6">
-          
             <div class="mt-2 text-sm bg-gray-50 dark:text-gray-400">
                 <QuillEditor
                     class="language-plaintext"
