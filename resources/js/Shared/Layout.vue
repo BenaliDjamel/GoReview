@@ -6,11 +6,11 @@ import Navbar from "./Navbar.vue";
 
 <template>
  
-  <section class="p-4 bg-gray-800">
-    <header class="flex justify-between">
+  <section class="px-20 py-4 bg-sky-900">
+    <header class="container flex-none hidden sm:flex justify-between">
       <div class="flex items-center">
         <h1 class="font-bold text-white text-lg">
-          My App
+          GoReview  
         </h1>
       </div>
 
