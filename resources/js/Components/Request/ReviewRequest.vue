@@ -29,16 +29,18 @@ const submit = () => {
             edit.value = false
 
         },
+        preserveScroll: true
     });
 };
 
 const likeReview = () => {
-    Inertia.post(route('like.store', { id: props.review.id }),
-     { preserveScroll: true });
+    Inertia.post(route('like.store', { id: props.review.id }), _,
+        { preserveScroll: true });
 }
+
 const unlikeReview = () => {
     Inertia.delete(route('like.delete', { id: props.review.id }),
-     { preserveScroll: true });
+        { preserveScroll: true });
 }
 
 const isLikedByAuthUser = computed(() => {

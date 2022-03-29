@@ -24,24 +24,67 @@ const submit = () => {
 
 
 <template>
-    <Head title="Create Request" />
-    <form @submit.prevent="submit">
-
-    <label for="code-title" class="block text-sm font-medium text-gray-700">Title</label>
-        <div class="mt-1 flex rounded-md shadow-sm">
-          
-            <input
-                type="text"
-                name="code-title"
-                v-model="form.title"
-                id="code-title"
-                class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                
-            />
-        </div>
+    <Head title="Submit Request" />
+    <div class="max-w-4xl mx-auto mt-4">
         <div>
-            <label for="about" class="block text-sm font-medium text-gray-700">About</label>
-            <div class="mt-1">
+            <h1 class="text-sm md:text-lg">Submit a request for a review</h1>
+        </div>
+        <form
+            @submit.prevent="submit"
+            class="grid grid-cols-1 mt-4 px-8 py-4 bg-white rounded-lg shadow-md"
+            action="#"
+        >
+            <div>
+                <label
+                    class="block mt-4 text-sm font-medium text-gray-600 dark:text-gray-200"
+                    for="title"
+                >Title</label>
+                <input
+                    v-model="form.title"
+                    class="mt-1 px-4 py-2 w-full text-gray-700 bg-white rounded border focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    type="text"
+                    name="title"
+                    id="title"
+                />
+            </div>
+
+            <div class="mt-4">
+                <label
+                    class="block mt-4 text-sm font-medium text-gray-600 dark:text-gray-200"
+                    for="link"
+                >Link</label>
+                <input
+                    v-model="form.link"
+                    class="w-full mt-1 px-4 py-2 rounded border focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    type="text"
+                    name="link"
+                    id="link"
+                />
+            </div>
+
+            <div class="mt-4">
+                <label
+                    class="block mt-4 text-sm font-medium text-gray-600 dark:text-gray-200"
+                    for="community"
+                >Community</label>
+                <select
+                    v-model="form.community_id"
+                    class="w-full mt-1 px-2 py-2 shadow-sm bg-white border rounded-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
+                    name="community"
+                    id="community"
+                >
+                    <option
+                        v-for="community in communities"
+                        :value="community.id"
+                    >{{ community.name }}</option>
+                </select>
+            </div>
+
+            <div class="mt-4 mb-24 md:mb-16 sm:h-80">
+                <label
+                    class="block mt-4 mb-1 text-sm font-medium text-gray-600 dark:text-gray-200"
+                    for="content"
+                >Content</label>
                 <QuillEditor
                     theme="snow"
                     v-model:content="form.content"
@@ -49,40 +92,13 @@ const submit = () => {
                     toolbar="essential"
                 />
             </div>
-        </div>
 
-        <label for="code-link" class="block text-sm font-medium text-gray-700">Link</label>
-        <div class="mt-1 flex rounded-md shadow-sm">
-            <span
-                class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
-            >http://</span>
-            <input
-                type="text"
-                name="code-link"
-                v-model="form.link"
-                id="code-link"
-                class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                placeholder="www.example.com"
-            />
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-            <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-            <select
-                v-model="form.community_id"
-                id="country"
-                name="country"
-                autocomplete="country-name"
-                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-                <option
-                    v-for="community in communities"
-                    :value="community.id"
-                >{{ community.name }}</option>
-            </select>
-        </div>
-        <button 
-            type="submit"
-            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
-        >Submit</button>
-    </form>
+            <div class="flex justify-end">
+                <button
+                    class="mt-8 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    type="submit"
+                >submit</button>
+            </div>
+        </form>
+    </div>
 </template>

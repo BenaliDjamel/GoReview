@@ -17,8 +17,8 @@ import Navbar from "./Navbar.vue";
       <Navbar  />
     </header>
   </section>
-    <section class="p-6 bg-gray-100" >
-        <div class="">
+    <section class=" bg-gray-100" >
+        <div class="container mx-auto p-6">
             <slot />
         </div>
     </section>
