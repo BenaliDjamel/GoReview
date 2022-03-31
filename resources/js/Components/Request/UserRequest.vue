@@ -88,10 +88,10 @@ const numberOfReviews = computed(() => {
             </div>
 
             <div class="mt-8">
-                <a
+                <Link
                     :href="`/request/${request.id}`"
                     class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
-                >{{ request.title }}</a>
+                >{{ request.title }}</Link>
             </div>
             <div class="mt-6 p-4 bg-gray-50">
                 <div class="text-gray-800 text-base tracking-wide leading-8 font-normal">
