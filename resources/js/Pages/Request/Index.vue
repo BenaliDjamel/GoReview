@@ -21,9 +21,11 @@ import UserRequest from '@/Components/Request/UserRequest.vue';
           
         </section> -->
         <!-- end main section -->
-        <section class="grid grid-cols-6 gap-4">
+        <section >
            
-           <UserRequest  v-for="request in requests" :request="request"/>
+          <div class="grid grid-cols-6 gap-4">
+               <UserRequest  v-for="request in requests" :request="request"/>
+          </div>
           
         </section>
     
