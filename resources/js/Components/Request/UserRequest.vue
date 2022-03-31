@@ -23,81 +23,78 @@ const numberOfReviews = computed(() => {
 
 
 <template>
-    <div   class="mb-8">
-        <div class="md:max-w-4xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <div class="flex items-center justify-between">
-                <div>
-                    <span
-                        class="text-sm font-light text-gray-600 dark:text-gray-400"
-                    >{{ request.created_at }}</span>
-
+    <div class="col-span-5">
+        <div class="p-6 bg-white shadow-md rounded-lg">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <p class="text-sm text-gray-700">
+                        Asked
+                        <span class="ml-1 text-gray-900">{{ request.created_at }}</span>
+                    </p>
                     <span
                         v-if="request.closed"
-                        class="text-sm ml-6 p-1.5 bg-green-600 rounded-full text-white dark:text-gray-400"
+                        class="ml-4 px-2.5 py-1 rounded-full text-white text-sm bg-green-600"
                     >Closed</span>
                 </div>
 
-                <div class="flex items-center justify-center">
-                    <div class="relative inline-block">
-                        <!-- Dropdown toggle button -->
-                        <button
-                            @click="dropdown = !dropdown"
-                            class="relative z-10 block p-2 text-gray-700 bg-gray-100 border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none"
-                        >
-                            <svg
-                                class="w-5 h-5 text-gray-800 dark:text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </button>
+                <div class="relative inline-block">
+                    <!-- Dropdown toggle button -->
+                    <svg
+                        @click="dropdown = !dropdown"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-gray-700 cursor-pointer"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                        />
+                    </svg>
 
-                        <!-- Dropdown menu -->
-                        <div
-                            v-show="dropdown"
-                            class="absolute right-0 z-20 w-48 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
-                        >
-                            <Link
-                                as="button"
-                                :href="`/request/${props.request.id}/edit`"
-                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >Edit Request</Link>
-                            <Link
-                                as="button"
-                                method="delete"
-                                :href="route('request.delete', props.request.id)"
-                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
-                            >Delete Request</Link>
-                            <a
-                                v-if="!request.closed"
-                                href="#"
-                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >Invite Reviewer</a>
-                            <Link
-                                v-if="!request.closed && numberOfReviews"
-                                as="button"
-                                method="put"
-                                :href="route('request.close', props.request.id)"
-                                class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >Close Request</Link>
-                        </div>
+                    <!-- Dropdown menu -->
+                    <div
+                        v-show="dropdown"
+                        class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+                    >
+                        <Link
+                            as="button"
+                            :href="`/request/${props.request.id}/edit`"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Edit Request</Link>
+                        <Link
+                            as="button"
+                            method="delete"
+                            :href="route('request.delete', props.request.id)"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+                        >Delete Request</Link>
+                        <a
+                            v-if="!request.closed"
+                            href="#"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Invite Reviewer</a>
+                        <Link
+                            v-if="!request.closed && numberOfReviews"
+                            as="button"
+                            method="put"
+                            :href="route('request.close', props.request.id)"
+                            class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Close Request</Link>
                     </div>
                 </div>
             </div>
 
             <div class="mt-8">
-                <Link
+                <a
                     :href="`/request/${request.id}`"
-                    class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
-                >{{ request.title }}</Link>
-
-                <div class="mt-6 bg-gray-50">
+                    class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
+                >{{ request.title }}</a>
+            </div>
+            <div class="mt-6 p-4 bg-gray-50">
+                <div class="text-gray-800 text-base tracking-wide leading-8 font-normal">
                     <QuillEditor
                         class="language-plaintext"
                         :toolbar="[]"
@@ -109,32 +106,27 @@ const numberOfReviews = computed(() => {
                 </div>
             </div>
 
-            <div class="mt-4">
-                Link :
-                <a :href="request.link" class="text-blue-600">{{ request.link }}</a>
+            <div class="mt-6">
+                <span class="text-gray-700 text-base">Link :</span>
+                <a class="text-blue-900 break-all" :href="request.link">{{ request.link }}</a>
             </div>
 
-            <div class="flex items-center justify-between mt-6">
-                <div class="flex items-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                        />
-                    </svg>
-
-                    <a
-                        class="ml-2 text-gray-700 cursor-pointer dark:text-gray-200"
-                    >{{ numberOfReviews }} review(s)</a>
-                </div>
+            <div class="mt-8 flex">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                    />
+                </svg>
+                <span class="ml-2 text-gray-800">{{ numberOfReviews }} review(s)</span>
             </div>
         </div>
     </div>
