@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Community;
 use App\Models\Request as RequestModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -25,9 +26,13 @@ class RequestController extends Controller
         $requests = RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])->get();
 
         return Inertia::render('Request/Feed', [
-            'requests' => $requests,
-            'communities' => Community::take(5)->get(['id', 'name']),
 
+            'requests' => $requests,
+
+            'communities' => Community::select(['id', 'name'])->withCount('requests')
+                ->take(5)
+                ->orderBy('requests_count', 'DESC')
+                ->get(),
         ]);
     }
 

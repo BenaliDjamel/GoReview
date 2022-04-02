@@ -3,6 +3,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { QuillEditor } from '@vueup/vue-quill'
 import { computed, ref } from 'vue';
+import DropDown from '@/Shared/DropDown.vue';
 
 
 const props = defineProps({
@@ -57,45 +58,21 @@ const likeCounts = computed(() => {
 </script>
 
 <template>
-  
     <div class="col-span-5">
         <div class="p-6 bg-white shadow-md rounded-lg">
             <div class="flex justify-end items-center">
-                <div class="relative inline-block">
-                    <!-- Dropdown toggle button -->
-                    <svg
-                        @click="dropdown = !dropdown"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-700 cursor-pointer"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                        />
-                    </svg>
-
-                    <!-- Dropdown menu -->
-                    <div
-                        v-show="dropdown"
-                        class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
-                    >
-                        <button
-                            @click="editReview"
-                            class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >{{ edit ? 'Cancel' : 'Edit' }}</button>
-                        <Link
-                            as="button"
-                            method="delete"
-                            :href="route('review.delete', { id: props.review.id, requestId: props.review.request_id })"
-                            class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >Delete</Link>
-                    </div>
-                </div>
+                <DropDown>
+                    <button
+                        @click="editReview"
+                        class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >{{ edit ? 'Cancel' : 'Edit' }}</button>
+                    <Link
+                        as="button"
+                        method="delete"
+                        :href="route('review.delete', { id: props.review.id, requestId: props.review.request_id })"
+                        class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >Delete</Link>
+                </DropDown>
             </div>
 
             <div class="flex">
