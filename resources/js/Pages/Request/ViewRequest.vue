@@ -32,7 +32,7 @@ const numberOfReviews = computed(() => {
                 <SubmitReview v-if="!request.closed" :requestId="request.id" />
             </div>
             <div class="my-8 text-xl">{{ numberOfReviews }}</div>
-            <div class="grid grid-cols-6">
+            <div class="grid grid-cols-6 gap-y-6">
                 <ReviewRequest v-for="review in request.reviews" :review="review" />
             </div>
         </section>
