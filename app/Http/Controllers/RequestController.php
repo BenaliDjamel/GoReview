@@ -18,9 +18,22 @@ class RequestController extends Controller
             'requests' => $request->user()->requests()->with(['reviews'])->get(),
         ]);
     }
+
+    public function feed()
+    {
+
+        $requests = RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])->get();
+
+        return Inertia::render('Request/Feed', [
+            'requests' => $requests,
+            'communities' => Community::take(5)->get(['id', 'name']),
+
+        ]);
+    }
+
     public function view(Request $req, $id)
     {
-        $request = RequestModel::with(['reviews.user','reviews.likes',  'community:id,name'])
+        $request = RequestModel::with(['reviews.user', 'reviews.likes',  'community:id,name'])
             ->where('id', $id)->first();
 
         return Inertia::render('Request/ViewRequest', [

@@ -6,6 +6,10 @@ import NavLink from "./NavLink";
 <template>
     <nav>
         <ul class="flex space-x-6">
+             <li>
+                <NavLink href="/feed" :active="$page.component === 'Request/Feed'">Feed</NavLink>
+            </li>
+
             <li>
                 <NavLink href="/create" :active="$page.component === 'Request/CreateRequest'">Create</NavLink>
             </li>
