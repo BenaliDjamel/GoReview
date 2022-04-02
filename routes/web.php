@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReviewController;
@@ -56,6 +57,13 @@ Route::put('/review/{id}/request/{requestId}', [ReviewController::class, 'update
 // likes routes
 Route::post('/like/review/{id}', [LikeController::class, 'store'])->name('like.store')->middleware(['auth', 'verified']);
 Route::delete('/like/review/{id}', [LikeController::class, 'delete'])->name('like.delete')->middleware(['auth', 'verified']);
+
+
+//community routes 
+Route::get('/community/{id}/requests', [CommunityController::class, 'feed'])->name('community.feed');
+Route::post('community', [CommunityController::class, 'store'])->name('community.store')->middleware(['auth', 'verified']);
+Route::delete('community/{id}', [CommunityController::class, 'delete'])->name('community.delete')->middleware(['auth', 'verified']);
+
 
 
 require __DIR__ . '/auth.php';

@@ -13,11 +13,11 @@ class ReviewController extends Controller
     public function store(Request $req, $id)
     {
 
-        $requested = RequestModel::findOrFail($id);
-
         $req->validate([
             'content' => ['bail', 'required', 'min:40'],
         ]);
+        
+        $requested = RequestModel::findOrFail($id);
 
         $review = new Review();
         $review->content = $req->content;
@@ -40,7 +40,7 @@ class ReviewController extends Controller
 
         $review =  Review::findOrFail($id);
         $review->content = $req->content;
-        
+
         $review->save();
 
         return redirect()->route('request.view', ['id' => $requested->id]);

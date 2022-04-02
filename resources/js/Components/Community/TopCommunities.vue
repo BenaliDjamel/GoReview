@@ -1,5 +1,8 @@
 
 <script setup>
+import { Link } from '@inertiajs/inertia-vue3'
+
+
 
 defineProps({
     community: Object
@@ -8,10 +11,10 @@ defineProps({
 
 <template>
     <div class="p-2 border flex justify-between items-center">
-        <a class="rounded text-gray-800" href="#">
+        <Link class="rounded text-gray-800" :href="route('community.feed', community.id)">
             review/
             <span>{{ community.name }}</span>
-        </a>
+        </Link>
         <span class="p-2 bg-gray-200 text-xs text-gray-700 rounded-full">{{community.requests_count}}</span>
     </div>
 </template>
