@@ -12,7 +12,14 @@ class CommunityController extends Controller
     {
 
         return Inertia::render('Community/Feed', [
-            'community' => Community::where('id', $id)->with('requests')->get(),
+            'community' => Community::where('id', $id)
+                ->with(['requests.user', 'requests.community', 'requests.reviews'])
+                ->first(),
+                
+            'communities' =>  Community::select(['id', 'name'])->withCount('requests')
+                ->take(5)
+                ->orderBy('requests_count', 'DESC')
+                ->get(),
         ]);
     }
 
