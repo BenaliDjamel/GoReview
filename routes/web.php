@@ -61,6 +61,7 @@ Route::delete('/like/review/{id}', [LikeController::class, 'delete'])->name('lik
 
 //community routes 
 Route::get('/community/{id}/requests', [CommunityController::class, 'feed'])->name('community.feed');
+Route::get('/community/create', [CommunityController::class, 'index'])->name('community.index');
 Route::post('community', [CommunityController::class, 'store'])->name('community.store')->middleware(['auth', 'verified']);
 Route::delete('community/{id}', [CommunityController::class, 'delete'])->name('community.delete')->middleware(['auth', 'verified']);
 

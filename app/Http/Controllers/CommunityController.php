@@ -8,14 +8,21 @@ use Inertia\Inertia;
 
 class CommunityController extends Controller
 {
-    public function feed(Request $request, $id)
+
+
+    public function index()
+    {
+        return Inertia::render('Community/CreateCommunity');
+    }
+
+    public function feed($id)
     {
 
         return Inertia::render('Community/Feed', [
             'community' => Community::where('id', $id)
                 ->with(['requests.user', 'requests.community', 'requests.reviews'])
                 ->first(),
-                
+
             'communities' =>  Community::select(['id', 'name'])->withCount('requests')
                 ->take(5)
                 ->orderBy('requests_count', 'DESC')

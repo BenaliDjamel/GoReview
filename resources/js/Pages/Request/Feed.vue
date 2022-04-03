@@ -38,7 +38,7 @@ const props = defineProps({
                 <a class="text-gray-900" href="#">View all</a>
             </div>
             <div class="mt-6 py-2 text-center bg-gray-200 rounded-lg">
-                <a class="text-gray-900" href="#">Create community</a>
+                <Link :href="route('community.index')" class="text-gray-900" >Create community</Link>
             </div>
         </div>
     </div>
