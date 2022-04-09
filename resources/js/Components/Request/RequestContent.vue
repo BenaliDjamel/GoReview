@@ -13,8 +13,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="p-6 bg-white shadow-md rounded-lg">
-        <div class="flex justify-between items-center">
+    <div class="p-6 max-w-4xl bg-white shadow-md rounded-lg">
+        <div class="flex  justify-between items-center">
             <div class="flex items-center">
                 <button
                     v-if="request.closed"
@@ -56,12 +56,13 @@ const props = defineProps({
                 href="#"
             >{{ request.title }}</Link>
         </div>
-        <div class="mt-6 p-4 bg-gray-50">
-            <div class="text-gray-800 text-base tracking-wide leading-8 font-normal">
+        <div class="mt-6 p-4 overflow-x-auto  bg-gray-50">
+            <div class="text-gray-800  tracking-wide leading-8 font-normal">
                 <QuillEditor
                     class="language-plaintext"
                     :toolbar="[]"
                     theme
+                    
                     :readOnly="true"
                     contentType="html"
                     :content="request.content"

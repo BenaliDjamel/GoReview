@@ -9,8 +9,18 @@ use Inertia\Inertia;
 class CommunityController extends Controller
 {
 
-
     public function index()
+    {
+        return Inertia::render('Community/Index', [
+
+            'communities' => Community::select(['id', 'name', 'description'])
+                ->withCount('requests')->get(),
+                
+        ]);
+    }
+
+
+    public function create()
     {
         return Inertia::render('Community/CreateCommunity');
     }
@@ -34,10 +44,12 @@ class CommunityController extends Controller
     {
         $request->validate([
             'name' => ['bail', 'required', 'min:2', 'max:15'],
+            'description' => ['required', 'min:20']
         ]);
 
         $community = new Community();
         $community->name = $request->name;
+        $community->description = $request->description;
 
         $community->save();
 
