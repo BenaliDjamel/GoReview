@@ -38,7 +38,7 @@ const numberOfReviews = computed(() => {
                 <DropDown>
                     <Link
                         as="button"
-                        :href="`/request/${props.request.id}/edit`"
+                        :href="route('request.edit', props.request.id)"
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                     >Edit Request</Link>
                     <Link
@@ -64,7 +64,7 @@ const numberOfReviews = computed(() => {
 
             <div class="mt-8">
                 <Link
-                    :href="`/request/${request.id}`"
+                :href="route('request.view', request.id)"
                     class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
                 >{{ request.title }}</Link>
             </div>
