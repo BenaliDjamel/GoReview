@@ -18,7 +18,7 @@ import { Link } from '@inertiajs/inertia-vue3'
       <Navbar  />
     </header>
   </section>
-    <section class="bg-gray-100" >
+    <section class="" >
         <div class="container mx-auto p-8">
             <slot />
         </div>

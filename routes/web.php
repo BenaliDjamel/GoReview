@@ -42,13 +42,13 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->controller(RequestController::class)->group(function () {
 
     Route::get('/requests', 'index')->name('request.index');
-    Route::get('/request/{id}',  'view')->name('request.view');
+    Route::get('/requests/{id}',  'view')->name('request.view');
     Route::get('/create', 'create')->name('request.create');
     Route::post('/store',  'store')->name('request.store');
-    Route::delete('/request/{id}', 'delete')->name('request.delete');
-    Route::get('/request/{id}/edit', 'edit')->name('request.edit');
-    Route::put('/request/{id}', 'update')->name('request.update');
-    Route::put('/request/{id}/close', 'closeRequest')->name('request.close');
+    Route::delete('/requests/{id}', 'delete')->name('request.delete');
+    Route::get('/requests/{id}/edit', 'edit')->name('request.edit');
+    Route::put('/requests/{id}', 'update')->name('request.update');
+    Route::put('/requests/{id}/close', 'closeRequest')->name('request.close');
 });
 
 Route::get('/feed', [RequestController::class, 'feed'])->name('request.feed');
@@ -81,7 +81,7 @@ Route::middleware(['auth', 'verified'])->controller(LikeController::class)->grou
 Route::middleware(['auth', 'verified'])->controller(CommunityController::class)->group(function () {
 
     Route::post('community',  'store')->name('community.store');
-    Route::delete('community/{id}',  'delete')->name('community.delete');
+    Route::delete('communities/{id}',  'delete')->name('community.delete');
 });
 
 
@@ -89,7 +89,7 @@ Route::middleware(['auth', 'verified'])->controller(CommunityController::class)-
 
 Route::controller(CommunityController::class)->group(function () {
 
-    Route::get('/community/{id}/requests', 'feed')->name('community.feed');
+    Route::get('/communities/{id}/requests', 'feed')->name('community.feed');
     Route::get('/communities', 'index')->name('community.index');
     Route::get('/community/create', 'create')->name('community.create');
 });

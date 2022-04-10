@@ -1,6 +1,8 @@
 <script setup>
 import TopCommunities from '@/Components/Community/TopCommunities.vue';
 import RequestContent from '@/Components/Request/RequestContent.vue';
+import { Link } from '@inertiajs/inertia-vue3'
+
 
 const props = defineProps({
     community: Object,
@@ -36,7 +38,7 @@ const props = defineProps({
             <div
                 class="mt-6 py-2 text-center bg-gray-50 border border-cyan-600 rounded-lg hover:bg-cyan-600 hover:text-white"
             >
-                <a class="text-gray-900" href="#">View all</a>
+                <Link :href="route('community.index')" class="text-gray-900" href="#">View all</Link>
             </div>
             <div class="mt-6 py-2 text-center bg-gray-200 rounded-lg">
                 <a class="text-gray-900" href="#">Create community</a>
