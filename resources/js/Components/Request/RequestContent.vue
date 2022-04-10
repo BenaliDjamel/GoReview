@@ -5,9 +5,11 @@ import { QuillEditor } from '@vueup/vue-quill'
 import { Link } from '@inertiajs/inertia-vue3'
 
 
+
 const props = defineProps({
     request: Object,
 })
+
 
 
 </script>
@@ -22,7 +24,7 @@ const props = defineProps({
                 >Closed</button>
             </div>
 
-            <DropDown>
+            <DropDown v-if="$page.props.auth.user">
                 <Link
                     as="button"
                     :href="`/request/${request.id}/edit`"
