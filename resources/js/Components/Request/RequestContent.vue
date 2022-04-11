@@ -24,7 +24,7 @@ const props = defineProps({
                 >Closed</button>
             </div>
 
-            <DropDown v-if="$page.props.auth.user && $page.props.auth.user.id === request.user.id">
+            <DropDown v-if="$page.props.auth?.user.id === request.user.id">
                 <Link v-if="request.can.edit_request"
                     as="button"
                     :href="route('request.edit', request.id)"

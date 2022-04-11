@@ -1,6 +1,6 @@
 <script setup>
 import DropDown from '@/Shared/DropDown.vue';
-import TopCommunities from '../../Components/Community/TopCommunities.vue';
+import TopCommunities from '@/Components/Community/TopCommunities.vue';
 import ReviewsCount from '@/Components/Review/ReviewsCount.vue';
 import { QuillEditor } from '@vueup/vue-quill'
 import { Link } from '@inertiajs/inertia-vue3'

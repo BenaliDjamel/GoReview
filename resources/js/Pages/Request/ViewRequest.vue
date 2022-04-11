@@ -6,7 +6,7 @@ import SubmitReview from '@/Components/Review/SubmitReview.vue';
 
 const props = defineProps({
     request: Object,
-    can: Object
+    can_request: Object
 })
 
 const numberOfReviews = computed(() => {
@@ -27,7 +27,7 @@ const numberOfReviews = computed(() => {
         <!-- start main section  -->
         <section >
             <div class="grid grid-cols-6">
-                <UserRequest :request="request" :can="can"  />
+                <UserRequest :request="request" :can="can_request"  />
             </div>
             <div class="grid grid-cols-6">
                 <SubmitReview v-if="!request.closed" :requestId="request.id" />

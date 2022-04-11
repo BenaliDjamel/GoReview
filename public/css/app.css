@@ -883,6 +883,12 @@ select {
 .cursor-pointer {
   cursor: pointer;
 }
+.cursor-none {
+  cursor: none;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
 .list-inside {
   list-style-position: inside;
 }
@@ -1064,6 +1070,12 @@ select {
 }
 .stroke-red-500 {
   stroke: #ef4444;
+}
+.stroke-red-100 {
+  stroke: #fee2e2;
+}
+.stroke-red-200 {
+  stroke: #fecaca;
 }
 .object-cover {
   -o-object-fit: cover;
