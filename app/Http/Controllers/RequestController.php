@@ -27,7 +27,7 @@ class RequestController extends Controller
         return Inertia::render('Request/Feed', [
 
             'requests' => RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])
-                ->get()->map(function($request) {
+                ->get()->map(function ($request) {
                     return [
                         "id" => $request->id,
                         "user_id" => $request->user_id,
@@ -36,6 +36,7 @@ class RequestController extends Controller
                         "title" => $request->title,
                         "link" => $request->link,
                         "closed" => $request->closed,
+                        "created_at" => $request->created_at,
                         "user" => $request->user,
                         "reviews" => $request->reviews,
                         "community" => $request->community,
@@ -45,7 +46,7 @@ class RequestController extends Controller
                             'close_request' => Auth::user()?->can('close', $request),
 
                         ],
-                        
+
                     ];
                 }),
 
@@ -62,7 +63,13 @@ class RequestController extends Controller
             ->where('id', $id)->first();
 
         return Inertia::render('Request/ViewRequest', [
-            'request' => $request
+            'request' => $request,
+            "can" => [
+                'edit_request' => Auth::user()?->can('update', $request),
+                'delete_request' => Auth::user()?->can('delete', $request),
+                'close_request' => Auth::user()?->can('close', $request),
+
+            ],
 
         ]);
     }

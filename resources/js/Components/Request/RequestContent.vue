@@ -24,7 +24,7 @@ const props = defineProps({
                 >Closed</button>
             </div>
 
-            <DropDown v-if="$page.props.auth.user">
+            <DropDown v-if="$page.props.auth.user && $page.props.auth.user.id === request.user.id">
                 <Link v-if="request.can.edit_request"
                     as="button"
                     :href="route('request.edit', request.id)"
@@ -36,11 +36,11 @@ const props = defineProps({
                     :href="route('request.delete', request.id)"
                     class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                 >Delete Request</Link>
-                <a
+                <Link
                     v-if="!request.closed"
                     href="#"
                     class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                >Invite Reviewer</a>
+                >Invite Reviewer</Link>
                 <Link 
                     v-if="!request.closed && request.can.close_request && 1"
                     as="button"
