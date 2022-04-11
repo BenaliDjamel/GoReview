@@ -1,40 +1,44 @@
 <script setup>
-import UserRequest from '@/Components/Request/UserRequest.vue';
-import ReviewRequest from '@/Components/Request/ReviewRequest.vue';
-import { computed } from 'vue';
-import SubmitReview from '@/Components/Review/SubmitReview.vue';
+import UserRequest from "@/Components/Request/UserRequest.vue";
+import ReviewRequest from "@/Components/Request/ReviewRequest.vue";
+import { computed } from "vue";
+import SubmitReview from "@/Components/Review/SubmitReview.vue";
 
 const props = defineProps({
     request: Object,
-    can_request: Object
-})
+    can_request: Object,
+    errors: Object,
+});
 
 const numberOfReviews = computed(() => {
     const reviews = props.request.reviews;
 
-    return reviews.length > 0 ?
-        `Your Request has ${reviews.length} Review(s)`
-        : 'No Reviews for this Request'
-})
-
+    return reviews.length > 0
+        ? `Your Request has ${reviews.length} Review(s)`
+        : "No Reviews for this Request";
+});
 </script>
-
-
 
 <template>
     <div class="">
-
         <!-- start main section  -->
-        <section >
+        <section>
             <div class="grid grid-cols-6">
-                <UserRequest :request="request" :can="can_request"  />
+                <UserRequest :request="request" :can="can_request" />
             </div>
             <div class="grid grid-cols-6">
-                <SubmitReview v-if="!request.closed" :requestId="request.id" />
+                <SubmitReview
+                    v-if="!request.closed"
+                    :requestId="request.id"
+                    :error="errors.content"
+                />
             </div>
             <div class="my-8 text-xl">{{ numberOfReviews }}</div>
             <div class="grid grid-cols-6 gap-y-6">
-                <ReviewRequest v-for="review in request.reviews" :review="review" />
+                <ReviewRequest
+                    v-for="review in request.reviews"
+                    :review="review"
+                />
             </div>
         </section>
         <!-- end main section -->
