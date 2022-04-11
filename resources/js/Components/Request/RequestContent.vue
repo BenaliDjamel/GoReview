@@ -5,7 +5,6 @@ import { QuillEditor } from '@vueup/vue-quill'
 import { Link } from '@inertiajs/inertia-vue3'
 
 
-
 const props = defineProps({
     request: Object,
 })

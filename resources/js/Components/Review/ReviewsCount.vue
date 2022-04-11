@@ -1,13 +1,13 @@
 <script setup>
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const props = defineProps({
-    request: Object
-})
+    request: Object,
+});
 
 const numberOfReviews = computed(() => {
     return props.request.reviews.length;
-})
+});
 </script>
 
 <template>
