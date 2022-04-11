@@ -65,7 +65,12 @@ class RequestPolicy
      */
     public function delete(User $user, Request $request)
     {
-        //
+        return ($user->id === $request->user_id) && $request->closed === 0;
+    }
+
+    public function close(User $user, Request $request)
+    {
+        return ($user->id === $request->user_id);
     }
 
     /**

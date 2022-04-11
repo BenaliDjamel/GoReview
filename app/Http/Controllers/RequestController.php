@@ -6,6 +6,7 @@ use App\Models\Community;
 use App\Models\Request as RequestModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class RequestController extends Controller
@@ -23,11 +24,30 @@ class RequestController extends Controller
     public function feed()
     {
 
-        $requests = RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])->get();
-
         return Inertia::render('Request/Feed', [
 
-            'requests' => $requests,
+            'requests' => RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])
+                ->get()->map(function($request) {
+                    return [
+                        "id" => $request->id,
+                        "user_id" => $request->user_id,
+                        "community_id" => $request->community_id,
+                        "content" => $request->content,
+                        "title" => $request->title,
+                        "link" => $request->link,
+                        "closed" => $request->closed,
+                        "user" => $request->user,
+                        "reviews" => $request->reviews,
+                        "community" => $request->community,
+                        "can" => [
+                            'edit_request' => Auth::user()?->can('update', $request),
+                            'delete_request' => Auth::user()?->can('delete', $request),
+                            'close_request' => Auth::user()?->can('close', $request),
+
+                        ],
+                        
+                    ];
+                }),
 
             'communities' => Community::select(['id', 'name'])->withCount('requests')
                 ->take(5)
