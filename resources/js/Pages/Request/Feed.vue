@@ -25,8 +25,8 @@ const props = defineProps({
                 </div>
             </template>
             <template v-else>
-                <div class="mt-6 text-2xl text-center">
-                    There is no requests
+                <div class="mt-6 text-gray-700 text-2xl text-center">
+                    There is no requests <Link :href="route('request.create')" class="text-base font-medium  underline text-blue-700">Create one?</Link>
                 </div>
             </template>
         </div>
@@ -55,7 +55,7 @@ const props = defineProps({
                 </div>
             </template>
             <template v-else>
-                <div class="mt-6 text-lg text-center">
+                <div class="mt-6 text-gray-700  text-lg text-center">
                     There is no communities
                 </div>
             </template>

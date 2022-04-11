@@ -42,7 +42,7 @@ const submit = () => {
             </div>
             <div v-if="!request.closed" class="grid grid-cols-6">
                 <div
-                    class="mt-6 p-6 mb-6 col-span-5 bg-white rounded-lg shadow-md"
+                    class="mt-6 p-6 mb-4 col-span-5 bg-white rounded-lg shadow-md"
                 >
                     <h2 class="font-semibold text-gray-700 dark:text-gray-200">
                         Your Review
@@ -73,7 +73,7 @@ const submit = () => {
                     </form>
                 </div>
             </div>
-            <div class="my-6 text-xl">{{ numberOfReviews }}</div>
+            <div class="mt-4 mb-6 text-xl">{{ numberOfReviews }}</div>
             <div class="grid grid-cols-6 gap-y-6">
                 <ReviewRequest
                     v-for="review in request.reviews"
