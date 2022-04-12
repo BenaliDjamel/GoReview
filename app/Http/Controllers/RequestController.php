@@ -36,7 +36,7 @@ class RequestController extends Controller
                         "title" => $request->title,
                         "link" => $request->link,
                         "closed" => $request->closed,
-                        "created_at" => $request->created_at,
+                        "created_at" => $request->created_at->format('F d, Y'),
                         "user" => $request->user,
                         "reviews" => $request->reviews,
                         "community" => $request->community,
