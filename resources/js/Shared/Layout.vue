@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 
 <template>
  
-  <section class="px-20 py-4 bg-sky-900">
+  <section class="px-20 py-4 bg-gray-700">
     <header class="container flex-none hidden sm:flex justify-between">
       <div class="flex items-center">
         <Link href="/feed" class="font-bold text-white text-lg">
@@ -19,7 +19,7 @@ import { Link } from '@inertiajs/inertia-vue3'
     </header>
   </section>
     <section class="" >
-        <div class="container mx-auto p-8">
+        <div class="container mx-auto p-10">
             <slot />
         </div>
     </section>

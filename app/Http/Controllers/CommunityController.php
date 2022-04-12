@@ -15,7 +15,7 @@ class CommunityController extends Controller
 
             'communities' => Community::select(['id', 'name', 'description'])
                 ->withCount('requests')->get(),
-                
+
         ]);
     }
 
@@ -53,7 +53,7 @@ class CommunityController extends Controller
 
         $community->save();
 
-        return redirect()->back();
+        return redirect()->route('community.index');
     }
 
     public function delete($id)

@@ -57,13 +57,12 @@ const props = defineProps({
                 href="#"
             >{{ request.title }}</Link>
         </div>
-        <div class="mt-6 p-4 overflow-x-auto  bg-gray-50">
-            <div class="text-gray-800  tracking-wide leading-8 font-normal">
+        <div class="mt-6   bg-gray-50">
+            <div class="text-gray-800 tracking-wide ">
                 <QuillEditor
-                    class="language-plaintext"
+                    class="overflow-x-auto text-xs"
                     :toolbar="[]"
                     theme
-                    
                     :readOnly="true"
                     contentType="html"
                     :content="request.content"
@@ -92,10 +91,10 @@ const props = defineProps({
 
         <div class="mt-6 flex items-center">
             <div class="bg-gray-200 px-2 py-1 rounded-full">
-                <a class="text-gray-700" href="#">
+                <Link :href="route('community.feed', request.community.id)" class="text-gray-700" >
                     review/
-                    <span class="text-cyan-900">{{ request.community.name }}</span>
-                </a>
+                    <span class="text-gray-900 font-semibold">{{ request.community.name }}</span>
+                </Link>
             </div>
 
             <div class="ml-4 flex items-center">

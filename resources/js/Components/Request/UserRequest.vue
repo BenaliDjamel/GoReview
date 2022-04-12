@@ -72,18 +72,18 @@ const numberOfReviews = computed(() => {
             </div>
 
             <div class="mt-8">
-                <Link
-                    :href="route('request.view', request.id)"
+                <p
+                   
                     class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
-                    >{{ request.title }}</Link
+                    >{{ request.title }}</p
                 >
             </div>
-            <div class="mt-6 p-4 bg-gray-50">
+            <div class="mt-6  bg-gray-50">
                 <div
-                    class="text-gray-800 text-base tracking-wide leading-8 font-normal"
+                    class="text-gray-800  tracking-wide"
                 >
                     <QuillEditor
-                        class="language-plaintext"
+                        class="overflow-x-auto"
                         :toolbar="[]"
                         theme
                         :readOnly="true"

@@ -6,7 +6,7 @@ import { InertiaProgress } from "@inertiajs/progress";
 import Layout from "./Shared/Layout";
 
 const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
+    window.document.getElementsByTagName("title")[0]?.innerText || "GoReview";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

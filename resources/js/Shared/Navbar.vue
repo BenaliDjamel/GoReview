@@ -22,7 +22,7 @@ import NavLink from "./NavLink";
             </li>
 
             <li>
-                <NavLink href="/logout" method="post" as="button">Log Out</NavLink>
+                <NavLink href="/logout" method="post" as="button">Logout</NavLink>
             </li>
         </ul>
     </nav>
