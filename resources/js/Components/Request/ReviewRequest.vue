@@ -61,7 +61,7 @@ const likeCounts = computed(() => {
     <div class="col-span-5">
         <div class="p-6 bg-white shadow-md rounded-lg">
             <div class="flex justify-end items-center">
-                <DropDown v-if="$page.props.auth?.user.id === review.user.id">
+                <DropDown v-if="$page.props.auth.user?.id === review.user.id">
                     <button
                         @click="editReview"
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
