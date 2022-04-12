@@ -1,13 +1,9 @@
-
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from "vue";
 
-defineProps({
+defineProps({});
 
-})
-
-const isOpen = ref(false)
-
+const open = ref(false);
 
 </script>
 
@@ -15,7 +11,7 @@ const isOpen = ref(false)
     <div class="relative inline-block">
         <!-- Dropdown toggle button -->
         <svg
-            @click="isOpen = !isOpen"
+            @click="open = !open"
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 text-gray-700 cursor-pointer"
             fill="none"
@@ -29,11 +25,16 @@ const isOpen = ref(false)
                 d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
             />
         </svg>
+        <div
+            v-show="open"
+            class="fixed inset-0 z-40"
+            @click="open = false"
+        ></div>
 
         <!-- Dropdown menu -->
         <div
-            v-show="isOpen"
-            class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+            v-show="open"
+            class="absolute right-0 z-50 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
         >
             <slot></slot>
         </div>
