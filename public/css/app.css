@@ -678,6 +678,14 @@ select {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -746,6 +754,9 @@ select {
 }
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 .block {
   display: block;
@@ -1059,6 +1070,22 @@ select {
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+.bg-cyan-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(103 232 249 / var(--tw-bg-opacity));
+}
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 .fill-current {
   fill: currentColor;

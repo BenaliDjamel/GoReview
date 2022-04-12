@@ -2,7 +2,7 @@
 import UserRequest from "@/Components/Request/UserRequest.vue";
 import ReviewRequest from "@/Components/Request/ReviewRequest.vue";
 import { computed, ref } from "vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from "@vueup/vue-quill";
 
 const props = defineProps({
@@ -25,6 +25,11 @@ const numberOfReviews = computed(() => {
         : "No Reviews for this Request";
 });
 
+const notMyRequest = computed(() => {
+    const userId = usePage().props.value.auth.user.id;
+    return userId !== props.request.user_id;
+});
+
 const submit = () => {
     form.post(route("review.store", props.request.id), {
         onSuccess: () => editor.value.setHTML(""),
@@ -40,7 +45,10 @@ const submit = () => {
             <div class="grid grid-cols-6">
                 <UserRequest :request="request" :can="can_request" />
             </div>
-            <div v-if="!request.closed" class="grid grid-cols-6">
+            <div
+                v-if="!request.closed && notMyRequest"
+                class="grid grid-cols-6"
+            >
                 <div
                     class="mt-6 p-6 mb-4 col-span-5 bg-white rounded-lg shadow-md"
                 >

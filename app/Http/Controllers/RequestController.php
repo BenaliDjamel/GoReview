@@ -27,7 +27,7 @@ class RequestController extends Controller
         return Inertia::render('Request/Feed', [
 
             'requests' => RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])
-                ->get()->map(function($request) {
+                ->get()->map(function ($request) {
                     return [
                         "id" => $request->id,
                         "user_id" => $request->user_id,
@@ -46,13 +46,18 @@ class RequestController extends Controller
                             'close_request' => Auth::user()?->can('close', $request),
 
                         ],
-                        
+
                     ];
                 }),
 
             'communities' => Community::select(['id', 'name'])->withCount('requests')
                 ->take(5)
                 ->orderBy('requests_count', 'DESC')
+                ->get(),
+
+            'hotRequests' => RequestModel::select(['id', 'title'])->withCount('reviews')
+                ->take(5)
+                ->orderBy('reviews_count', 'DESC')
                 ->get(),
         ]);
     }

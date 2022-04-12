@@ -9,6 +9,7 @@ import RequestContent from "@/Components/Request/RequestContent.vue";
 const props = defineProps({
     requests: Array,
     communities: Array,
+    hotRequests: Array,
 });
 </script>
 
@@ -26,7 +27,12 @@ const props = defineProps({
             </template>
             <template v-else>
                 <div class="mt-6 text-gray-700 text-2xl text-center">
-                    There is no requests <Link :href="route('request.create')" class="text-base font-medium  underline text-blue-700">Create one?</Link>
+                    There is no requests
+                    <Link
+                        :href="route('request.create')"
+                        class="text-base font-medium underline text-blue-700"
+                        >Create one?</Link
+                    >
                 </div>
             </template>
         </div>
@@ -55,7 +61,7 @@ const props = defineProps({
                 </div>
             </template>
             <template v-else>
-                <div class="mt-6 text-gray-700  text-lg text-center">
+                <div class="mt-6 text-gray-700 text-lg text-center">
                     There is no communities
                 </div>
             </template>
@@ -64,6 +70,24 @@ const props = defineProps({
                     >Create community</Link
                 >
             </div>
+
+            <div
+                v-if="hotRequests.length"
+                class="mt-8 mb-6 font-medium p-4 rounded-lg text-center text-white bg-gray-700"
+            >
+                Hot Network Requests
+            </div>
+            <ul>
+                <li
+                    v-for="hotRequest in hotRequests"
+                    :key="hotRequest.id"
+                    class="mb-4 text-xs font-semibold text-gray-700"
+                >
+                    <Link :href="route('request.view', hotRequest.id)">{{
+                        hotRequest.title
+                    }}</Link>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
