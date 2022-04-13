@@ -112,7 +112,9 @@ defineProps({
         </template>
 
         <template v-else>
-            <div class="mt-6 text-2xl text-center">You don't have requests</div>
+            <div class="mt-6 text-2xl text-center text-gray-700">
+                You don't have requests
+            </div>
         </template>
     </section>
 </template>

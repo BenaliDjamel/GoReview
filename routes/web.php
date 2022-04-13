@@ -83,6 +83,7 @@ Route::middleware(['auth', 'verified'])->controller(CommunityController::class)-
 
     Route::post('community',  'store')->name('community.store');
     Route::delete('communities/{id}',  'delete')->name('community.delete');
+    Route::get('/community/create', 'create')->name('community.create');
 });
 
 
@@ -92,7 +93,6 @@ Route::controller(CommunityController::class)->group(function () {
 
     Route::get('/communities/{id}/requests', 'feed')->name('community.feed');
     Route::get('/communities', 'index')->name('community.index');
-    Route::get('/community/create', 'create')->name('community.create');
 });
 
 
