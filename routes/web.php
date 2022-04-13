@@ -35,6 +35,7 @@ Route::get('/', function () {
 //Admin routes
 Route::middleware(['auth', 'verified'])->controller(AdminController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('admin.panel');
+    Route::delete('/admin/users/{id}', 'delete')->name('admin.delete.user');
 });
 
 

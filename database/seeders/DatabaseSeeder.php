@@ -14,8 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Request::factory()->count(3)->create();
+        /*  \App\Models\Request::factory()->count(3)->create();
         \App\Models\Review::factory()->count(5)->create();
-        \App\Models\Like::factory()->count(5)->create();
+        \App\Models\Like::factory()->count(5)->create(); */
+        \App\Models\User::factory()->create();
+        \App\Models\User::factory()->create([
+            "name" => "Ayat Amine",
+            "email" => "eeeee0566@gmail.com",
+            "is_admin" => false
+        ]);
+        \App\Models\Community::factory()->create();
     }
 }

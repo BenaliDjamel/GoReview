@@ -1,9 +1,13 @@
-<script setup></script>
+<script setup>
+defineProps({
+    users: Array,
+});
+
+</script>
 
 <template>
     <div class="flex flex-col justify-center">
         <div>Dashboard</div>
-
         <div class="mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -21,20 +25,24 @@
                 </thead>
                 <tbody>
                     <tr
+                        v-for="user in users"
+                        :key="user"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     >
                         <th
                             scope="row"
                             class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                         >
-                            Apple MacBook Pro 17"
+                            {{ user.name }}
                         </th>
-                        <td class="px-6 py-4">Sliver</td>
+                        <td class="px-6 py-4">{{ user.email }}</td>
                         <td class="px-6 py-4 text-right">
-                            <a
-                                href="#"
+                            <Link v-if="$page.props.auth.user?.id !== user.id && !user.is_admin"
+                                as="button"
+                                method="delete"
+                                :href="route('admin.delete.user', user.id)"
                                 class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                >Delete</a
+                                >Delete</Link
                             >
                         </td>
                     </tr>
