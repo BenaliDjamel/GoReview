@@ -4,7 +4,6 @@ import { ref, onMounted, onUnmounted } from "vue";
 defineProps({});
 
 const open = ref(false);
-
 </script>
 
 <template>
@@ -32,11 +31,20 @@ const open = ref(false);
         ></div>
 
         <!-- Dropdown menu -->
-        <div
-            v-show="open"
-            class="absolute right-0 z-50 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+        <transition
+            enter-active-class="transition ease-out duration-200"
+            enter-from-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75"
+            leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
         >
-            <slot></slot>
-        </div>
+            <div
+                v-show="open"
+                class="absolute right-0 z-50 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+            >
+                <slot></slot>
+            </div>
+        </transition>
     </div>
 </template>
