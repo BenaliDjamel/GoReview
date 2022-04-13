@@ -1,4 +1,5 @@
 <script setup>
+import BreezeButton from '@/Components/Button.vue';
 import { useForm } from "@inertiajs/inertia-vue3";
 import TextInput from "@/Components/TextInput.vue";
 
@@ -62,14 +63,9 @@ const submit = () => {
                 </div>
 
                 <div class="flex justify-end">
-                    <button
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                        class="mt-8 px-4 py-2 sm:px-6 sm:py-3 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out"
-                        type="submit"
-                    >
-                        submit
-                    </button>
+                     <BreezeButton class="ml-4 mt-8" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Submit
+                </BreezeButton>
                 </div>
             </form>
         </div>

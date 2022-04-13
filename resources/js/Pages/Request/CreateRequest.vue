@@ -1,4 +1,5 @@
 <script setup>
+import BreezeButton from '@/Components/Button.vue';
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
@@ -106,12 +107,9 @@ const submit = () => {
             </div>
 
             <div class="flex justify-end">
-                <button
-                    class="mt-8 px-4 py-2 sm:px-6 sm:py-3 bg-sky-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    type="submit"
-                >
-                    submit
-                </button>
+               <BreezeButton class="ml-4 mt-8" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Submit
+                </BreezeButton>
             </div>
         </form>
     </div>

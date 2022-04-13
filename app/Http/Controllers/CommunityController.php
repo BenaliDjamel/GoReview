@@ -44,7 +44,7 @@ class CommunityController extends Controller
     {
         $request->validate([
             'name' => ['bail', 'required', 'min:2', 'max:15'],
-            'description' => ['required', 'min:20']
+            'description' => ['required', 'min:20', 'max:300']
         ]);
 
         $community = new Community();
