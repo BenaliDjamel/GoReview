@@ -20,7 +20,7 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="flex h-screen justify-center items-center">
+    <div class="flex h-screen justify-center">
         <div>
             <div>
                 <h1 class="text-sm md:text-lg">Create a community</h1>

@@ -53,8 +53,7 @@ const props = defineProps({
         <div class="mt-8">
             <Link
                 :href="route('request.view', request.id)"
-                class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
-                href="#"
+                class="text-sm sm:text-xl text-gray-900 over:underline hover:underline-offset-8"
             >{{ request.title }}</Link>
         </div>
         <div class="mt-6   bg-gray-50">

@@ -1,4 +1,5 @@
 <script setup>
+import BreezeButton from "@/Components/Button.vue";
 import UserRequest from "@/Components/Request/UserRequest.vue";
 import ReviewRequest from "@/Components/Request/ReviewRequest.vue";
 import { computed, ref } from "vue";
@@ -71,12 +72,13 @@ const submit = () => {
                             </div>
                         </div>
                         <div class="flex justify-end">
-                            <button
-                                type="submit"
-                                class="px-4 py-2 mt-4 sm:mt-12 font-medium text-white transition-colors duration-200 transform bg-sky-900 text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg ease-in-out"
+                            <BreezeButton
+                                class="mt-6 sm:mt-12"
+                                :class="{ 'opacity-25': form.processing }"
+                                :disabled="form.processing"
                             >
                                 Submit
-                            </button>
+                            </BreezeButton>
                         </div>
                     </form>
                 </div>

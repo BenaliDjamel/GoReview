@@ -18,7 +18,7 @@ import NavLink from "./NavLink";
                 <NavLink href="/requests" :active="$page.component === 'Request/Index'">My Requests</NavLink>
             </li>
             <li>
-                <NavLink href="/dashboard" :active="$page.component === 'Dashboard'">Dashboard</NavLink>
+                <NavLink href="/dashboard" :active="$page.component === 'AdminPanel'">Admin</NavLink>
             </li>
 
             <li>

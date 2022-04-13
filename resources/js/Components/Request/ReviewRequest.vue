@@ -1,60 +1,63 @@
 <script setup>
-import { Inertia } from '@inertiajs/inertia';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
-import { QuillEditor } from '@vueup/vue-quill'
-import { computed, ref } from 'vue';
-import DropDown from '@/Shared/DropDown.vue';
-
+import BreezeButton from '@/Components/Button.vue';
+import { Inertia } from "@inertiajs/inertia";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { QuillEditor } from "@vueup/vue-quill";
+import { computed, ref } from "vue";
+import DropDown from "@/Shared/DropDown.vue";
 
 const props = defineProps({
-    review: Object
-})
-
-const edit = ref(false)
-const dropdown = ref(false)
-
-
-const form = useForm({
-    content: props.review.content
+    review: Object,
 });
 
+const edit = ref(false);
+const dropdown = ref(false);
+
+const form = useForm({
+    content: props.review.content,
+});
 
 const editReview = () => {
     edit.value = !edit.value;
     dropdown.value = false;
-}
-
+};
 
 const submit = () => {
-    form.put(route('review.update', { id: props.review.id, requestId: props.review.request_id }), {
-        onSuccess: () => {
-            edit.value = false
-
-        },
-        preserveScroll: true
-    });
+    form.put(
+        route("review.update", {
+            id: props.review.id,
+            requestId: props.review.request_id,
+        }),
+        {
+            onSuccess: () => {
+                edit.value = false;
+            },
+            preserveScroll: true,
+        }
+    );
 };
 
 const likeReview = () => {
-    Inertia.post(route('like.store', { id: props.review.id }), _,
-        { preserveScroll: true });
-}
+    Inertia.post(route("like.store", { id: props.review.id }), _, {
+        preserveScroll: true,
+    });
+};
 
 const unlikeReview = () => {
-    Inertia.delete(route('like.delete', { id: props.review.id }),
-        { preserveScroll: true });
-}
+    Inertia.delete(route("like.delete", { id: props.review.id }), {
+        preserveScroll: true,
+    });
+};
 
 const isLikedByAuthUser = computed(() => {
     const likes = props.review.likes;
-    const userId = usePage().props.value.auth.user.id
-    return likes.filter(obj => obj.user_id === userId).length
-})
+    const userId = usePage().props.value.auth.user.id;
+    return likes.filter((obj) => obj.user_id === userId).length;
+});
 
 const likeCounts = computed(() => {
-    return props.review.likes.length
-})
-
+    return props.review.likes.length;
+});
 </script>
 
 <template>
@@ -65,20 +68,30 @@ const likeCounts = computed(() => {
                     <button
                         @click="editReview"
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >{{ edit ? 'Cancel' : 'Edit' }}</button>
+                    >
+                        {{ edit ? "Cancel" : "Edit" }}
+                    </button>
                     <Link
                         as="button"
                         method="delete"
-                        :href="route('review.delete', { id: props.review.id, requestId: props.review.request_id })"
+                        :href="
+                            route('review.delete', {
+                                id: props.review.id,
+                                requestId: props.review.request_id,
+                            })
+                        "
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >Delete</Link>
+                        >Delete</Link
+                    >
                 </DropDown>
             </div>
 
             <div class="flex">
                 <div class="mt-6 p-4 w-full bg-gray-50">
                     <div class>
-                        <div class="text-gray-800 text-base tracking-wide leading-8 font-normal">
+                        <div
+                            class="text-gray-800 text-base tracking-wide leading-8 font-normal"
+                        >
                             <template v-if="edit">
                                 <QuillEditor
                                     toolbar="essential"
@@ -101,7 +114,9 @@ const likeCounts = computed(() => {
                     </div>
                 </div>
                 <div class="flex flex-col justify-center items-center ml-8">
-                    <div class="p-2 cursor-pointer hover:bg-gray-100 hover:rounded-full">
+                    <div
+                        class="p-2 cursor-pointer hover:bg-gray-100 hover:rounded-full"
+                    >
                         <template v-if="isLikedByAuthUser">
                             <svg
                                 @click="unlikeReview"
@@ -120,9 +135,12 @@ const likeCounts = computed(() => {
                             </svg>
                         </template>
 
-                         <template v-else-if="$page.props.auth?.user.id === review.user.id">
+                        <template
+                            v-else-if="
+                                $page.props.auth?.user.id === review.user.id
+                            "
+                        >
                             <svg
-                               
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="h-8 w-8 stroke-red-200 cursor-not-allowed"
                                 fill="none"
@@ -158,16 +176,22 @@ const likeCounts = computed(() => {
                     </div>
 
                     <div>
-                        <span class="text-sm text-red-500">{{ likeCounts }}</span>
+                        <span class="text-sm text-red-500">{{
+                            likeCounts
+                        }}</span>
                     </div>
                 </div>
             </div>
             <div class="flex justify-center">
-                <button
+                <BreezeButton
                     v-if="edit"
                     @click="submit"
-                    class="mt-4 px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-cyan-600 rounded-md hover:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300 focus:ring-opacity-80"
-                >Submit</button>
+                    class="mt-4"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Submit
+                </BreezeButton>
             </div>
 
             <div class="mt-10">
@@ -181,7 +205,8 @@ const likeCounts = computed(() => {
                         <a
                             href="#"
                             class="font-semibold text-gray-800 tracking-wide dark:text-gray-200 cursor-pointer"
-                        >{{ review.user.name }}</a>
+                            >{{ review.user.name }}</a
+                        >
                         <p class="text-xs text-gray-500">
                             answered
                             <span class="ml-1">{{ review.created_at }}</span>

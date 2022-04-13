@@ -75,7 +75,7 @@ defineProps({
                         <div class="mt-8">
                             <Link
                                 :href="route('request.view', request.id)"
-                                class="text-sm sm:text-xl text-gray-900 sm:text-gray-800"
+                                class="text-sm sm:text-xl text-gray-900 hover:underline hover:underline-offset-8"
                                 >{{ request.title }}</Link
                             >
                         </div>
