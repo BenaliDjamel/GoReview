@@ -8,6 +8,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::get('/', function () {
 
 
 //Admin routes
-Route::middleware(['auth', 'verified'])->controller(AdminController::class)->group(function () {
+Route::middleware(['auth', EnsureUserIsAdmin::class, 'verified'])->controller(AdminController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('admin.panel');
     Route::delete('/admin/users/{id}', 'delete')->name('admin.delete.user');
 });

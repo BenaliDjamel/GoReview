@@ -28,7 +28,7 @@ import NavLink from "./NavLink";
                     >Your Requests</NavLink
                 >
             </li>
-            <li v-if="$page.props.auth.user">
+            <li v-if="$page.props.auth.user?.is_admin">
                 <NavLink
                     href="/dashboard"
                     :active="$page.component === 'AdminPanel'"
