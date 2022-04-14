@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+
 
 class RequestController extends Controller
 {
@@ -58,7 +60,12 @@ class RequestController extends Controller
             'hotRequests' => RequestModel::select(['id', 'title'])->withCount('reviews')
                 ->take(5)
                 ->orderBy('reviews_count', 'DESC')
-                ->get(),
+                ->get()->map(function ($request) {
+                    return [
+                        "id" => $request->id,
+                        "title" =>  Str::of($request->title)->limit(100),
+                    ];
+                }),
         ]);
     }
 

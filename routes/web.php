@@ -36,7 +36,10 @@ Route::get('/', function () {
 //Admin routes
 Route::middleware(['auth', EnsureUserIsAdmin::class, 'verified'])->controller(AdminController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('admin.panel');
-    Route::delete('/admin/users/{id}', 'delete')->name('admin.delete.user');
+    Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.delete.user');
+    Route::delete('/admin/requests/{id}', 'deleteRequest')->name('admin.delete.request');
+    Route::put('/admin/requests/{id}', 'closeRequest')->name('admin.close.request');
+    Route::get('/admin/requests', 'requests')->name('admin.requests');
 });
 
 

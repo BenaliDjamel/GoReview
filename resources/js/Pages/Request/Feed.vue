@@ -81,7 +81,7 @@ const props = defineProps({
                 <li
                     v-for="hotRequest in hotRequests"
                     :key="hotRequest.id"
-                    class="mb-4 text-xs font-semibold text-gray-700"
+                    class="mb-4 text-xs font-semibold text-gray-600 hover:underline"
                 >
                     <Link :href="route('request.view', hotRequest.id)">{{
                         hotRequest.title
