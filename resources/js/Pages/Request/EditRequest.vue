@@ -54,13 +54,7 @@ const submit = () => {
                     for="link"
                     >Link</label
                 >
-                <input
-                    v-model="form.link"
-                    class="w-full mt-1 px-4 py-2 rounded border focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    type="text"
-                    name="link"
-                    id="link"
-                />
+               <TextInput v-model="form.link" name="link" id="link" />
             </div>
 
             <div class="mt-4">
@@ -72,7 +66,7 @@ const submit = () => {
                 <select
                     v-model="form.community_id"
                     :class="{ 'border-red-600': errors.community_id }"
-                    class="w-full mt-1 px-2 py-2 shadow-sm bg-white border rounded-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
+                    class="w-full mt-1 px-2 py-2 shadow-sm bg-white rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     name="community"
                     id="community"
                 >

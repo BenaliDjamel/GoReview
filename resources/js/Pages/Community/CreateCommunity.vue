@@ -1,5 +1,5 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
+import BreezeButton from "@/Components/Button.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import TextInput from "@/Components/TextInput.vue";
 
@@ -50,7 +50,7 @@ const submit = () => {
                     <textarea
                         v-model="form.description"
                         :class="{ 'border-red-600': errors.description }"
-                        class="mt-1 px-4 py-2 w-full text-gray-700 bg-white rounded border focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        class="mt-1 px-4 py-2 w-full text-gray-700 bg-white shadow-sm rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         type="text"
                         name="description"
                         id="description"
@@ -63,9 +63,13 @@ const submit = () => {
                 </div>
 
                 <div class="flex justify-end">
-                     <BreezeButton class="ml-4 mt-8" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Submit
-                </BreezeButton>
+                    <BreezeButton
+                        class="ml-4 mt-8"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                    >
+                        Submit
+                    </BreezeButton>
                 </div>
             </form>
         </div>
