@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import TabLink from "@/Components/Admin/TabLink.vue";
+import GroupTabLink from "@/Components/Admin/GroupTabLink.vue";
 
 defineProps({
     users: Array,
@@ -9,19 +11,7 @@ defineProps({
 <template>
     <div class="flex flex-col justify-center">
         <div class="flex border-b border-gray-200 dark:border-gray-700">
-            <Link
-                :href="route('admin.panel')"
-                class="h-10 px-4 py-2 -mb-px text-sm text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:text-base dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none"
-            >
-                Users
-            </Link>
-
-            <Link
-                :href="route('admin.requests')"
-                class="h-10 px-4 py-2 -mb-px text-sm text-center text-gray-700 bg-transparent border-b-2 border-transparent sm:text-base dark:text-white whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400"
-            >
-                Request
-            </Link>
+            <GroupTabLink />
         </div>
 
         <div class="mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">

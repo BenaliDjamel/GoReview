@@ -31,7 +31,11 @@ import NavLink from "./NavLink";
             <li v-if="$page.props.auth.user?.is_admin">
                 <NavLink
                     href="/dashboard"
-                    :active="$page.component === 'AdminPanel'"
+                    :active="
+                        ['Admin/Users', 'Admin/Requests'].includes(
+                            $page.component
+                        )
+                    "
                     >Admin</NavLink
                 >
             </li>

@@ -11,14 +11,14 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return Inertia::render('AdminPanel', [
+        return Inertia::render('Admin/Users', [
             'users' => User::all()
         ]);
     }
 
     public function requests()
     {
-        return Inertia::render('Requests', [
+        return Inertia::render('Admin/Requests', [
             'requests' => RequestModel::with('user')->get()->map(function ($request) {
                 return [
                     'id' => $request->id,
