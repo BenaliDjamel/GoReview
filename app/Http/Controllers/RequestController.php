@@ -60,7 +60,7 @@ class RequestController extends Controller
             'hotRequests' => RequestModel::select(['id', 'title'])->withCount('reviews')
                 ->take(5)
                 ->orderBy('reviews_count', 'DESC')
-                ->get()->map(function ($request) {
+                ->get()->transform(function ($request) {
                     return [
                         "id" => $request->id,
                         "title" =>  Str::of($request->title)->limit(100),

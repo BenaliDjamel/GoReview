@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function requests()
     {
         return Inertia::render('Admin/Requests', [
-            'requests' => RequestModel::with('user')->get()->map(function ($request) {
+            'requests' => RequestModel::with('user')->get()->transform(function ($request) {
                 return [
                     'id' => $request->id,
                     'title' => Str::of($request->title)->limit(80),
