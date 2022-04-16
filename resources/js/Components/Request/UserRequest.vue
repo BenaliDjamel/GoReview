@@ -14,6 +14,18 @@ const props = defineProps({
 const numberOfReviews = computed(() => {
     return props.request.reviews.length;
 });
+
+const destroy = (requestId) => {
+    if (confirm("Are you sure you want to delete this request?")) {
+        Inertia.delete(route("request.delete", requestId));
+    }
+};
+
+const closeRequest = (requestId) => {
+    if (confirm("Are you sure you want to close this request?")) {
+        Inertia.put(route("request.close", requestId));
+    }
+};
 </script>
 
 <template>
@@ -42,46 +54,40 @@ const numberOfReviews = computed(() => {
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                         >Edit Request</Link
                     >
-                    <Link
+                    <button
+                        @click="destroy(request.id)"
                         v-if="can.delete_request"
-                        as="button"
-                        method="delete"
-                        :href="route('request.delete', props.request.id)"
-                        class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
-                        >Delete Request</Link
+                        class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                     >
+                        Delete Request
+                    </button>
                     <Link
                         as="button"
                         v-if="!request.closed"
                         class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                         >Invite Reviewer</Link
                     >
-                    <Link
+                    <button
+                        @click="closeRequest(request.id)"
                         v-if="
                             !request.closed &&
                             can.close_request &&
                             numberOfReviews
                         "
-                        as="button"
-                        method="put"
-                        :href="route('request.close', props.request.id)"
-                        class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >Close Request</Link
+                        class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
+                        Close Request
+                    </button>
                 </DropDown>
             </div>
 
             <div class="mt-8">
-                <p
-                   
-                    class="text-sm sm:text-xl text-gray-900"
-                    >{{ request.title }}</p
-                >
+                <p class="text-sm sm:text-xl text-gray-900">
+                    {{ request.title }}
+                </p>
             </div>
-            <div class="mt-6  bg-gray-50">
-                <div
-                    class="text-gray-800  tracking-wide"
-                >
+            <div class="mt-6 bg-gray-50">
+                <div class="text-gray-800 tracking-wide">
                     <QuillEditor
                         class="overflow-x-auto"
                         :toolbar="[]"

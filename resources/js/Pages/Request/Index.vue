@@ -1,5 +1,6 @@
 <script setup>
 import ReviewsCount from "@/Components/Review/ReviewsCount.vue";
+import { Inertia } from "@inertiajs/inertia";
 import DropDown from "@/Shared/DropDown.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
@@ -9,6 +10,18 @@ import { Link } from "@inertiajs/inertia-vue3";
 defineProps({
     requests: Array,
 });
+
+const destroy = (requestId) => {
+    if (confirm("Are you sure you want to delete this request?")) {
+        Inertia.delete(route("request.delete", requestId));
+    }
+};
+
+const closeRequest = (requestId) => {
+    if (confirm("Are you sure you want to close this request?")) {
+        Inertia.put(route("request.close", requestId));
+    }
+};
 </script>
 
 <template>
@@ -43,14 +56,13 @@ defineProps({
                                     class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                                     >Edit Request</Link
                                 >
-                                <Link
+                                <button
+                                    @click="destroy(request.id)"
                                     v-if="!request.closed"
-                                    as="button"
-                                    method="delete"
-                                    :href="route('request.delete', request.id)"
-                                    class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
-                                    >Delete Request</Link
+                                    class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                                 >
+                                    Delete Request
+                                </button>
                                 <Link
                                     as="button"
                                     v-if="!request.closed"
@@ -58,17 +70,16 @@ defineProps({
                                     class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                                     >Invite Reviewer</Link
                                 >
-                                <Link
+                                <button
+                                    @click="closeRequest(request.id)"
                                     v-if="
                                         !request.closed &&
                                         request.reviews.length
                                     "
-                                    as="button"
-                                    method="put"
-                                    :href="route('request.close', request.id)"
-                                    class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >Close Request</Link
+                                    class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                                 >
+                                    Close Request
+                                </button>
                             </DropDown>
                         </div>
 

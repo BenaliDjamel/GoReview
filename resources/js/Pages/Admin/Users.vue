@@ -1,11 +1,18 @@
 <script setup>
 import { ref } from "vue";
+import { Inertia } from "@inertiajs/inertia";
 import TabLink from "@/Components/Admin/TabLink.vue";
 import GroupTabLink from "@/Components/Admin/GroupTabLink.vue";
 
 defineProps({
     users: Array,
 });
+
+const destroy = (userId) => {
+    if (confirm("Are you sure you want to delete this user?")) {
+        Inertia.delete(route("admin.delete.user", userId));
+    }
+};
 </script>
 
 <template>
@@ -43,17 +50,16 @@ defineProps({
                         </th>
                         <td class="px-6 py-4">{{ user.email }}</td>
                         <td class="px-6 py-4 text-right">
-                            <Link
+                            <button
+                                @click="destroy(user.id)"
                                 v-if="
                                     $page.props.auth.user?.id !== user.id &&
                                     !user.is_admin
                                 "
-                                as="button"
-                                method="delete"
-                                :href="route('admin.delete.user', user.id)"
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                >Delete</Link
+                                class="font-medium text-red-600 dark:text-red-500"
                             >
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 </tbody>

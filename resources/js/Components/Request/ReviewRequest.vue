@@ -1,5 +1,5 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
+import BreezeButton from "@/Components/Button.vue";
 import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from "@vueup/vue-quill";
@@ -58,6 +58,17 @@ const isLikedByAuthUser = computed(() => {
 const likeCounts = computed(() => {
     return props.review.likes.length;
 });
+
+const destroy = (reviewId, requestId) => {
+    if (confirm("Are you sure you want to delete this review?")) {
+        Inertia.delete(
+            route("review.delete", {
+                id: reviewId,
+                requestId: requestId,
+            })
+        );
+    }
+};
 </script>
 
 <template>
@@ -71,18 +82,12 @@ const likeCounts = computed(() => {
                     >
                         {{ edit ? "Cancel" : "Edit" }}
                     </button>
-                    <Link
-                        as="button"
-                        method="delete"
-                        :href="
-                            route('review.delete', {
-                                id: props.review.id,
-                                requestId: props.review.request_id,
-                            })
-                        "
-                        class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >Delete</Link
+                    <button
+                        @click="destroy(review.id, review.request_id)"
+                        class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
+                        Delete
+                    </button>
                 </DropDown>
             </div>
 

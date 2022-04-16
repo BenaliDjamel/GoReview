@@ -1,11 +1,25 @@
 <script setup>
 import { ref } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+
 import TabLink from "@/Components/Admin/TabLink.vue";
 import GroupTabLink from "@/Components/Admin/GroupTabLink.vue";
 
 defineProps({
     requests: Array,
 });
+
+const destroy = (requestId) => {
+    if (confirm("Are you sure you want to delete this request?")) {
+        Inertia.delete(route("admin.delete.request", requestId));
+    }
+};
+
+const closeRequest = (requestId) => {
+    if (confirm("Are you sure you want to close this request?")) {
+        Inertia.put(route("admin.close.request", requestId));
+    }
+};
 </script>
 
 <template>
@@ -53,25 +67,26 @@ defineProps({
                         <td class="px-6 py-4">{{ request.user.name }}</td>
                         <td class="px-6 py-4">{{ request.user.email }}</td>
                         <td class="px-6 py-4 text-right">
-                            <Link
-                                as="button"
-                                method="delete"
-                                :href="
-                                    route('admin.delete.request', request.id)
-                                "
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                >Delete</Link
+                            <button
+                                @click="destroy(request.id)"
+                                class="font-medium text-red-600 dark:text-red-500"
                             >
+                                Delete
+                            </button>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <Link
+                            <button
                                 v-if="!request.closed"
-                                as="button"
-                                method="put"
-                                :href="route('admin.close.request', request.id)"
-                                class="font-medium text-green-600 dark:text-green-500 hover:underline"
-                                >Close</Link
+                                @click="closeRequest(request.id)"
+                                class="font-medium text-green-600 dark:text-green-500"
                             >
+                                Close
+                            </button>
+                        </td>
+                    </tr>
+                    <tr v-if="requests.length === 0">
+                        <td class="px-6 py-4 border-t" colspan="3">
+                            No requests found.
                         </td>
                     </tr>
                 </tbody>
