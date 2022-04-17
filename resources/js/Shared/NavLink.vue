@@ -8,7 +8,7 @@ defineProps({
 
 
 <template>
-    <Link class="text-white" :class="{'font-bold underline underline-offset-8 tracking-wider': active}">
+    <Link class="text-white font-semibold text-base hover:underline hover:underline-offset-8 hover:decoration-black hover:decoration-2" :class="{'font-bold underline underline-offset-8 decoration-2 tracking-wider': active}">
     <slot />
     </link>
 </template>

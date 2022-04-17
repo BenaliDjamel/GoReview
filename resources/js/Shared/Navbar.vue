@@ -13,6 +13,14 @@ import NavLink from "./NavLink";
                 >
             </li>
 
+            <li v-if="$page.props.auth.user">
+                <NavLink
+                    href="/requests"
+                    :active="$page.component === 'Request/Index'"
+                    >Your Requests</NavLink
+                >
+            </li>
+
             <li>
                 <NavLink
                     href="/create"
@@ -21,13 +29,6 @@ import NavLink from "./NavLink";
                 >
             </li>
 
-            <li v-if="$page.props.auth.user">
-                <NavLink
-                    href="/requests"
-                    :active="$page.component === 'Request/Index'"
-                    >Your Requests</NavLink
-                >
-            </li>
             <li v-if="$page.props.auth.user?.is_admin">
                 <NavLink
                     href="/dashboard"
@@ -36,22 +37,23 @@ import NavLink from "./NavLink";
                             $page.component
                         )
                     "
-                    >Admin</NavLink
+                    >Dashboard</NavLink
                 >
             </li>
 
-            <template v-if="$page.props.auth.user">
-                <li>
-                    <NavLink href="/logout" method="post" as="button"
-                        >Logout</NavLink
-                    >
-                </li>
-            </template>
-            <template v-else>
-                <li>
-                    <NavLink href="/register">Signup</NavLink>
-                </li>
-            </template>
+            <li v-if="$page.props.auth.user">
+                <NavLink href="/logout" method="post" as="button"
+                    >Logout</NavLink
+                >
+            </li>
+
+            <li v-if="!$page.props.auth.user">
+                <NavLink
+                    :active="$page.component === 'Auth/Register'"
+                    href="/register"
+                    >Signup</NavLink
+                >
+            </li>
         </ul>
     </nav>
 </template>

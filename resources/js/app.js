@@ -13,6 +13,11 @@ createInertiaApp({
     resolve: (name) => {
         let page = require(`./Pages/${name}.vue`).default;
 
+        //landing page
+        if (page.__file === "resources/js/Pages/Welcome.vue") {
+            return page;
+        }
+
         page.layout = page.layout || Layout;
         return page;
     },
