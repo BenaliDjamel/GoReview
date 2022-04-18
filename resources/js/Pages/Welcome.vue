@@ -38,7 +38,7 @@ defineProps({
                     class="flex flex-col w-full md:w-2/4 justify-center items-start text-center md:text-left"
                 >
                     <h1
-                        class="my-4 text-4xl text-white font-bold leading-tight"
+                        class="my-4 text-5xl text-white font-bold leading-tight"
                     >
                         Request Code Review From Other Developers
                     </h1>
