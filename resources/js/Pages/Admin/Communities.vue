@@ -4,9 +4,10 @@ import { Inertia } from "@inertiajs/inertia";
 
 import TabLink from "@/Components/Admin/TabLink.vue";
 import GroupTabLink from "@/Components/Admin/GroupTabLink.vue";
+import Pagination from "@/Shared/Pagination.vue";
 
 defineProps({
-    communities: Array,
+    communities: Object,
 });
 
 const destroy = (communityId) => {
@@ -16,9 +17,7 @@ const destroy = (communityId) => {
 };
 
 const editCommunity = (communityId) => {
-  
-        Inertia.get(route("admin.edit.community", communityId));
-    
+    Inertia.get(route("admin.edit.community", communityId));
 };
 </script>
 
@@ -47,7 +46,7 @@ const editCommunity = (communityId) => {
                 </thead>
                 <tbody>
                     <tr
-                        v-for="community in communities"
+                        v-for="community in communities.data"
                         :key="community.id"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     >
@@ -87,5 +86,6 @@ const editCommunity = (communityId) => {
                 </tbody>
             </table>
         </div>
+        <Pagination :links="communities.links" class="mt-6" />
     </div>
 </template>

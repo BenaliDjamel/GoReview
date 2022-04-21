@@ -13,14 +13,16 @@ class AdminController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Users', [
-            'users' => User::select(['id', 'name', 'email'])->get()
+            'users' => User::select(['id', 'name', 'email'])->paginate(1)
         ]);
     }
 
     public function requests()
     {
         return Inertia::render('Admin/Requests', [
-            'requests' => RequestModel::with('user')->get()->transform(function ($request) {
+            'requests' => RequestModel::with('user')->paginate(1)
+            ->withQueryString()
+            ->through(function ($request) {
                 return [
                     'id' => $request->id,
                     'title' => Str::of($request->title)->limit(80),
@@ -34,7 +36,7 @@ class AdminController extends Controller
     public function communities()
     {
         return Inertia::render('Admin/Communities', [
-            'communities' => Community::select(['id', 'name'])->get()
+            'communities' => Community::select(['id', 'name'])->paginate(1)
         ]);
     }
 

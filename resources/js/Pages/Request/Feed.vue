@@ -4,15 +4,15 @@ import TopCommunities from "@/Components/Community/TopCommunities.vue";
 import ReviewsCount from "@/Components/Review/ReviewsCount.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import Pagination from "@/Shared/Pagination.vue";
 
 import { Link } from "@inertiajs/inertia-vue3";
 import RequestContent from "@/Components/Request/RequestContent.vue";
 import DropdownButton from "@/Components/DropdownButton.vue";
 import { Inertia } from "@inertiajs/inertia";
 
-
 const props = defineProps({
-    requests: Array,
+    requests: Object,
     communities: Array,
     hotRequests: Array,
 });
@@ -33,10 +33,10 @@ const closeRequest = (requestId) => {
 <template>
     <div class="grid grid-cols-8 gap-6">
         <div class="col-span-8 md:col-span-5 lg:col-span-6">
-            <template v-if="requests.length">
+            <template v-if="requests.data.length">
                 <div class="grid grid-flow-row gap-8">
                     <div
-                        v-for="request in requests"
+                        v-for="request in requests.data"
                         :key="request.id"
                         class="p-6 max-w-4xl bg-white shadow-md rounded-lg"
                     >
@@ -148,6 +148,7 @@ const closeRequest = (requestId) => {
                         </div>
                     </div>
                 </div>
+                <Pagination :links="requests.links" class="mt-6" />
             </template>
             <template v-else>
                 <div class="mt-6 text-gray-700 text-2xl text-center">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Community;
+use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -29,9 +30,30 @@ class CommunityController extends Controller
     {
 
         return Inertia::render('Community/Feed', [
-            'community' => Community::where('id', $id)
+            /* 'community' => Community::where('id', $id)
                 ->with(['requests.user', 'requests.community', 'requests.reviews'])
-                ->first(),
+                ->first(), */
+
+                'requests' => RequestModel::where('community_id', $id)
+                ->with(['user:id,name', 'reviews.user', 'community:id,name'])
+                ->paginate(1)
+                ->withQueryString()
+                ->through(function ($request) {
+                        return [
+                            "id" => $request->id,
+                            "user_id" => $request->user_id,
+                            "community_id" => $request->community_id,
+                            "content" => $request->content,
+                            "title" => $request->title,
+                            "link" => $request->link,
+                            "closed" => $request->closed,
+                            "created_at" => $request->created_at->format('F d, Y'),
+                            "user" => $request->user,
+                            "reviews" => $request->reviews,
+                            "community" => $request->community,
+                           
+                        ];
+                    }),
 
             'communities' =>  Community::select(['id', 'name'])->withCount('requests')
                 ->take(5)

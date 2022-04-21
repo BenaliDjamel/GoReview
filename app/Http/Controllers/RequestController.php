@@ -29,7 +29,9 @@ class RequestController extends Controller
         return Inertia::render('Request/Feed', [
 
             'requests' => RequestModel::with(['user:id,name', 'reviews.user', 'community:id,name'])
-                ->get()->map(function ($request) {
+            ->paginate(1)
+            ->withQueryString()
+            ->through(function ($request) {
                     return [
                         "id" => $request->id,
                         "user_id" => $request->user_id,

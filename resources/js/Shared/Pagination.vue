@@ -1,13 +1,7 @@
-<script>
-import { Link } from "@inertiajs/inertia-vue3";
-export default {
-    components: {
-        Link,
-    },
-    props: {
-        links: Array,
-    },
-};
+<script setup>
+defineProps({
+    links: Array,
+});
 </script>
 
 <template>

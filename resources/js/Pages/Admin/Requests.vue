@@ -4,9 +4,10 @@ import { Inertia } from "@inertiajs/inertia";
 
 import TabLink from "@/Components/Admin/TabLink.vue";
 import GroupTabLink from "@/Components/Admin/GroupTabLink.vue";
+import Pagination from "@/Shared/Pagination.vue";
 
 defineProps({
-    requests: Array,
+    requests: Object,
 });
 
 const destroy = (requestId) => {
@@ -49,7 +50,7 @@ const closeRequest = (requestId) => {
                 </thead>
                 <tbody>
                     <tr
-                        v-for="request in requests"
+                        v-for="request in requests.data"
                         :key="request.id"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     >
@@ -92,5 +93,6 @@ const closeRequest = (requestId) => {
                 </tbody>
             </table>
         </div>
+        <Pagination :links="requests.links" class="mt-6" />
     </div>
 </template>
