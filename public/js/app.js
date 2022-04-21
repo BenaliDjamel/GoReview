@@ -25802,7 +25802,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, " Confirm Password ", -1
 /* HOISTED */
 );
@@ -25888,7 +25888,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, " Forgot Password ", -1
 /* HOISTED */
 );
@@ -25980,7 +25980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, "Login", -1
 /* HOISTED */
 );
@@ -26122,7 +26122,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, "Register", -1
 /* HOISTED */
 );
@@ -26270,7 +26270,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, " Reset Password ", -1
 /* HOISTED */
 );
@@ -26386,7 +26386,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 text-center text-gray-800 font-bold text-2xl"
+  "class": "p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400"
 }, " Email Verification ", -1
 /* HOISTED */
 );

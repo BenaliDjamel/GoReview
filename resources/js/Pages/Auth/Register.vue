@@ -22,7 +22,7 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="p-4 text-center text-gray-800 font-bold text-2xl">Register</div>
+    <div class="p-4 text-center font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-purple-600 to-blue-400 ">Register</div>
 
     <BreezeGuestLayout>
         <Head title="Register" />
