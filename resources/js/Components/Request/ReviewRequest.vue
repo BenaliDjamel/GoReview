@@ -5,6 +5,7 @@ import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from "@vueup/vue-quill";
 import { computed, ref } from "vue";
 import DropDown from "@/Shared/DropDown.vue";
+import DropdownButton from "@/Components/DropdownButton.vue";
 
 const props = defineProps({
     review: Object,
@@ -13,7 +14,7 @@ const props = defineProps({
 const edit = ref(false);
 const dropdown = ref(false);
 
-const form = useForm({
+const formReview = useForm({
     content: props.review.content,
 });
 
@@ -23,7 +24,7 @@ const editReview = () => {
 };
 
 const submit = () => {
-    form.put(
+    formReview.put(
         route("review.update", {
             id: props.review.id,
             requestId: props.review.request_id,
@@ -65,7 +66,13 @@ const destroy = (reviewId, requestId) => {
             route("review.delete", {
                 id: reviewId,
                 requestId: requestId,
-            })
+            }),
+            {
+                onSuccess: () => {
+                    dropdown.value = false;
+                },
+                preserveScroll: true,
+            }
         );
     }
 };
@@ -82,12 +89,12 @@ const destroy = (reviewId, requestId) => {
                     >
                         {{ edit ? "Cancel" : "Edit" }}
                     </button>
-                    <button
+
+                    <DropdownButton
                         @click="destroy(review.id, review.request_id)"
-                        class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                         Delete
-                    </button>
+                    </DropdownButton>
                 </DropDown>
             </div>
 
@@ -103,7 +110,7 @@ const destroy = (reviewId, requestId) => {
                                     theme="snow"
                                     :readOnly="false"
                                     contentType="html"
-                                    v-model:content="form.content"
+                                    v-model:content="formReview.content"
                                 />
                             </template>
                             <template v-else>
@@ -147,7 +154,7 @@ const destroy = (reviewId, requestId) => {
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-8 w-8 stroke-red-200 cursor-not-allowed"
+                                class="h-8 w-8 stroke-red-300 cursor-not-allowed"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -181,9 +188,15 @@ const destroy = (reviewId, requestId) => {
                     </div>
 
                     <div>
-                        <span class="text-sm text-red-500">{{
-                            likeCounts
-                        }}</span>
+                        <span
+                            :class="{
+                                'text-red-300':
+                                    $page.props.auth?.user.id ===
+                                    review.user.id,
+                            }"
+                            class="text-sm text-red-500"
+                            >{{ likeCounts }}</span
+                        >
                     </div>
                 </div>
             </div>
@@ -192,8 +205,8 @@ const destroy = (reviewId, requestId) => {
                     v-if="edit"
                     @click="submit"
                     class="mt-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
+                    :class="{ 'opacity-25': formReview.processing }"
+                    :disabled="formReview.processing"
                 >
                     Submit
                 </BreezeButton>

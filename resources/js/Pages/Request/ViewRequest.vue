@@ -2,9 +2,16 @@
 import BreezeButton from "@/Components/Button.vue";
 import UserRequest from "@/Components/Request/UserRequest.vue";
 import ReviewRequest from "@/Components/Request/ReviewRequest.vue";
+import ReviewsCount from "@/Components/Review/ReviewsCount.vue";
+import DropdownButton from "@/Components/DropdownButton.vue";
+import LikeIcon from "@/Components/LikeIcon.vue";
 import { computed, ref } from "vue";
+import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
+import DropDown from "@/Shared/DropDown.vue";
 
 const props = defineProps({
     request: Object,
@@ -37,6 +44,22 @@ const submit = () => {
         preserveScroll: true,
     });
 };
+
+/* const numberOfReviews = computed(() => {
+    return props.request.reviews.length;
+}); */
+
+const destroy = (requestId) => {
+    if (confirm("Are you sure you want to delete this request?")) {
+        Inertia.delete(route("request.delete", requestId));
+    }
+};
+
+const closeRequest = (requestId) => {
+    if (confirm("Are you sure you want to close this request?")) {
+        Inertia.put(route("request.close", requestId), );
+    }
+};
 </script>
 
 <template>
@@ -44,7 +67,86 @@ const submit = () => {
         <!-- start main section  -->
         <section>
             <div class="grid grid-cols-6">
-                <UserRequest :request="request" :can="can_request" />
+                <div class="col-span-5">
+                    <div class="p-6 bg-white shadow-md rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <p class="text-sm text-gray-700">
+                                    Asked
+                                    <span class="ml-1 text-gray-900">{{
+                                        request.created_at
+                                    }}</span>
+                                </p>
+                                <span
+                                    v-if="request.closed"
+                                    class="ml-4 px-2.5 py-1 rounded-full text-white text-sm bg-green-600"
+                                    >Closed</span
+                                >
+                            </div>
+
+                            <DropDown ref="">
+                                <DropdownButton
+                                    v-if="can_request.edit_request"
+                                    :href="route('request.edit', request.id)"
+                                >
+                                    Edit Request
+                                </DropdownButton>
+
+                                <DropdownButton
+                                    @click="destroy(request.id)"
+                                    v-if="can_request.delete_request"
+                                >
+                                    Delete Request
+                                </DropdownButton>
+
+                                <DropdownButton
+                                    @click="closeRequest(request.id)"
+                                    v-if="
+                                        !request.closed &&
+                                        can_request.close_request &&
+                                        numberOfReviews
+                                    "
+                                >
+                                    Close Request
+                                </DropdownButton>
+                                <DropdownButton v-if="!request.closed">
+                                    Invite Reviewer
+                                </DropdownButton>
+                            </DropDown>
+                        </div>
+
+                        <div class="mt-8">
+                            <p class="text-sm sm:text-xl text-gray-900">
+                                {{ request.title }}
+                            </p>
+                        </div>
+                        <div class="mt-6 bg-gray-50">
+                            <div class="text-gray-800 tracking-wide">
+                                <QuillEditor
+                                    class="overflow-x-auto"
+                                    :toolbar="[]"
+                                    theme
+                                    :readOnly="true"
+                                    contentType="html"
+                                    :content="request.content"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <span class="text-gray-700 text-base">Link :</span>
+                            <a
+                                class="text-blue-900 break-all"
+                                :href="request.link"
+                                >{{ request.link }}</a
+                            >
+                        </div>
+
+                        <div class="mt-8 flex">
+                            <ReviewsCount :request="request" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div
                 v-if="!request.closed && notMyRequest"

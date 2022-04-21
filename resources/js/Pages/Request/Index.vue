@@ -2,6 +2,7 @@
 import ReviewsCount from "@/Components/Review/ReviewsCount.vue";
 import { Inertia } from "@inertiajs/inertia";
 import DropDown from "@/Shared/DropDown.vue";
+import DropdownButton from "@/Components/DropdownButton.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
@@ -50,36 +51,31 @@ const closeRequest = (requestId) => {
                             </div>
 
                             <DropDown>
-                                <Link
-                                    as="button"
+                                <DropdownButton
                                     :href="route('request.edit', request.id)"
-                                    class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >Edit Request</Link
                                 >
-                                <button
+                                    Edit Request
+                                </DropdownButton>
+
+                                <DropdownButton
                                     @click="destroy(request.id)"
                                     v-if="!request.closed"
-                                    class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                                 >
                                     Delete Request
-                                </button>
-                                <Link
-                                    as="button"
-                                    v-if="!request.closed"
-                                    href="#"
-                                    class="text-left w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >Invite Reviewer</Link
-                                >
-                                <button
+                                </DropdownButton>
+
+                                <DropdownButton
                                     @click="closeRequest(request.id)"
                                     v-if="
                                         !request.closed &&
                                         request.reviews.length
                                     "
-                                    class="text-left block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                                 >
                                     Close Request
-                                </button>
+                                </DropdownButton>
+                                <DropdownButton v-if="!request.closed">
+                                    Invite Reviewer
+                                </DropdownButton>
                             </DropDown>
                         </div>
 

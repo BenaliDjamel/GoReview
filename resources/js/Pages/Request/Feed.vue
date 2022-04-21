@@ -3,6 +3,8 @@ import DropDown from "@/Shared/DropDown.vue";
 import TopCommunities from "@/Components/Community/TopCommunities.vue";
 import ReviewsCount from "@/Components/Review/ReviewsCount.vue";
 import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
 import { Link } from "@inertiajs/inertia-vue3";
 import RequestContent from "@/Components/Request/RequestContent.vue";
 import DropdownButton from "@/Components/DropdownButton.vue";
