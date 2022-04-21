@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Community;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ class AdminController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Users', [
-            'users' => User::all()
+            'users' => User::select(['id', 'name', 'email'])->get()
         ]);
     }
 
@@ -30,17 +31,16 @@ class AdminController extends Controller
         ]);
     }
 
+    public function communities()
+    {
+        return Inertia::render('Admin/Communities', [
+            'communities' => Community::select(['id', 'name'])->get()
+        ]);
+    }
+
     public function deleteUser($id)
     {
         $user = User::find($id);
-        $user->delete();
-
-        return redirect()->back();
-    }
-
-    public function deleteRequest($id)
-    {
-        $user = RequestModel::find($id);
         $user->delete();
 
         return redirect()->back();
@@ -54,5 +54,27 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back();
+    }
+
+    public function deleteRequest($id)
+    {
+        $user = RequestModel::find($id);
+        $user->delete();
+
+        return redirect()->back();
+    }
+
+    public function deleteCommunity($id)
+    {
+        $user = Community::find($id);
+        $user->delete();
+
+        return redirect()->back();
+    }
+    public function EditCommunity($id)
+    {
+        return Inertia::render('Admin/EditCommunity', [
+            'community' => Community::where('id', $id)->get(),
+        ]);
     }
 }

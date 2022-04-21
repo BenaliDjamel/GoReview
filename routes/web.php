@@ -34,13 +34,21 @@ Route::get('/', function () {
 
 
 //Admin routes
-Route::middleware(['auth', EnsureUserIsAdmin::class, 'verified'])->controller(AdminController::class)->group(function () {
-    Route::get('/dashboard', 'index')->name('admin.panel');
-    Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.delete.user');
-    Route::delete('/admin/requests/{id}', 'deleteRequest')->name('admin.delete.request');
-    Route::put('/admin/requests/{id}', 'closeRequest')->name('admin.close.request');
-    Route::get('/admin/requests', 'requests')->name('admin.requests');
-});
+Route::middleware(['auth', EnsureUserIsAdmin::class, 'verified'])
+    ->controller(AdminController::class)->group(function () {
+
+        Route::get('/dashboard', 'index')->name('admin.panel');
+
+        Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.delete.user');
+
+        Route::delete('/admin/requests/{id}', 'deleteRequest')->name('admin.delete.request');
+        Route::put('/admin/requests/{id}', 'closeRequest')->name('admin.close.request');
+        Route::get('/admin/requests', 'requests')->name('admin.requests');
+
+        Route::get('/admin/communities', 'communities')->name('admin.communities');
+        Route::delete('/admin/communities/{id}', 'deleteCommunity')->name('admin.delete.community');
+        Route::get('/admin/communities/{id}', 'EditCommunity')->name('admin.edit.community');
+    });
 
 
 //Request routes
@@ -92,7 +100,7 @@ Route::middleware(['auth', 'verified'])->controller(CommunityController::class)-
 
 
 
-
+//community routes (no auth required)
 Route::controller(CommunityController::class)->group(function () {
 
     Route::get('/communities/{id}/requests', 'feed')->name('community.feed');

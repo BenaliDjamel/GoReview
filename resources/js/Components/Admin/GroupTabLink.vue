@@ -15,4 +15,10 @@ import TabLink from "@/Components/Admin/TabLink.vue";
     >
         Requests
     </TabLink>
+     <TabLink
+        :href="route('admin.communities')"
+        :active="$page.component === 'Admin/Communities'"
+    >
+        Communities
+    </TabLink>
 </template>
